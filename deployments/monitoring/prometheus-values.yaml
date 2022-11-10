@@ -1,0 +1,33 @@
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: hcloud-volumes
+          accessModes: 
+          - "ReadWriteOnce"
+          resources:
+            requests:
+              storage: 10Gi
+
+grafana:
+  forceDeployDatasources: true
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: true
+      uid: prometheus
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki:3100
+  serviceMonitor:
+    enabled: true
+  persistence:
+    enabled: true
+    size: 1Gi
+    accessModes:
+      - ReadWriteOnce

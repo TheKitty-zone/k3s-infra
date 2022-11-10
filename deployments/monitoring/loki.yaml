@@ -1,0 +1,19 @@
+loki:
+  persistence:
+    enabled: true
+    # Customize this
+    size: 12Gi
+  config:
+    table_manager:
+      retention_deletes_enabled: true
+      # Customize this: how long should logs be kept?
+      retention_period: 1w
+    limits_config:
+      max_query_series: 5000
+  serviceMonitor:
+    enabled: true
+
+promtail:
+  enabled: true
+fluent-bit:
+  enabled: false

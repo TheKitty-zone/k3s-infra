@@ -1,0 +1,114 @@
+
+image:
+  # -- image repository
+  repository: spikecodes/libreddit
+  # -- image pull policy
+  pullPolicy: IfNotPresent
+  # -- image tag
+  # this example is not automatically updated, so be sure to use the latest image
+  tag: latest
+
+controller:
+  strategy:
+  rollingUpdate:
+    # -- Set deployment RollingUpdate max unavailable
+    unavailable: 1
+    # -- Set deployment RollingUpdate max surge
+    surge: 2
+    # -- Set statefulset RollingUpdate partition
+    partition: 33.33
+
+  replicas: 3
+
+# -- environment variables.
+# See [image docs](https://github.com/libreddit/libreddit#change-default-settings).
+env:
+  LIBREDDIT_DEFAULT_THEME: black
+  LIBREDDIT_DEFAULT_FRONT_PAGE: popular
+  LIBREDDIT_DEFAULT_LAYOUT: card
+  LIBREDDIT_DEFAULT_WIDE :	"off"
+  LIBREDDIT_DEFAULT_POST_SORT: hot
+  LIBREDDIT_DEFAULT_COMMENT_SORT: confidence
+  LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
+  LIBREDDIT_DEFAULT_USE_HLS: "on"
+  LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "off"
+  LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: "off"
+
+# -- Configures service settings for the chart.
+service:
+  main:
+    ports:
+      http:
+        port: 8080
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  main:
+    enabled: false
+
+probes:
+  # -- Liveness probe configuration
+  # @default -- See below
+  liveness:
+    # -- Enable the liveness probe
+    enabled: true
+    # -- Set this to `true` if you wish to specify your own livenessProbe
+    custom: true
+    # -- sets the probe type when not using a custom probe
+    # @default -- "TCP"
+    type: TCP
+    # -- The spec field contains the values for the default livenessProbe.
+    # If you selected `custom: true`, this field holds the definition of the livenessProbe.
+    # @default -- See below
+    spec:
+      httpGet:
+        port: 8080
+        path: /settings
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+
+  # -- Redainess probe configuration
+  # @default -- See below
+  readiness:
+    # -- Enable the readiness probe
+    enabled: true
+    # -- Set this to `true` if you wish to specify your own readinessProbe
+    custom: true
+    # -- sets the probe type when not using a custom probe
+    # @default -- "TCP"
+    type: TCP
+    # -- The spec field contains the values for the default readinessProbe.
+    # If you selected `custom: true`, this field holds the definition of the readinessProbe.
+    # @default -- See below
+    spec:
+      httpGet:
+        port: 8080
+        path: /settings
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+
+  # -- Startup probe configuration
+  # @default -- See below
+  startup:
+    # -- Enable the startup probe
+    enabled: true
+    # -- Set this to `true` if you wish to specify your own startupProbe
+    custom: true
+    # -- sets the probe type when not using a custom probe
+    # @default -- "TCP"
+    type: TCP
+    # -- The spec field contains the values for the default startupProbe.
+    # If you selected `custom: true`, this field holds the definition of the startupProbe.
+    # @default -- See below
+    spec:
+      httpGet:
+        port: 8080
+        path: /settings
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+      ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+      periodSeconds: 5
+      failureThreshold: 30
