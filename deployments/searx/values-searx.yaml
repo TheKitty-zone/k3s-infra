@@ -1,0 +1,90 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  # -- image repository
+  repository: searxng/searxng
+  # -- image tag
+  tag: latest
+  # -- image pull policy
+  pullPolicy: Always
+
+# Explanation about each environment variables here:
+# https://docs.searxng.org/admin/installation-docker.html#command-line
+env:
+  INSTANCE_NAME: "The kitty zone search"
+  BASE_URL: "https://search.thekitty.zone/"
+  AUTOCOMPLETE: "true"
+  # MORTY_URL: "http://morty:8080"
+  # MORTY_KEY: "mysecretkey"
+  BIND_ADDRESS: "0.0.0.0:8080"
+
+controller:
+  strategy: "RollingUpdate"
+
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
+service:
+  main:
+    ports:
+      http:
+        port: 8080
+
+# -- Configure persistence settings for the chart under this key.
+# @default -- See values.yaml
+persistence:
+  config:
+    enabled: false
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: false
+
+searxng:
+  config:
+    use_default_settings: true
+    general:
+      enable_metrics: true
+    server:
+      secret_key: 
+      image_proxy: true
+      http_protocol_version: "1.0"
+    ui:
+      theme_args:
+        simple_style: dark
+    search:
+      autocomplete: "qwant"
+      autocomplete_min: 4
+      default_lang: "en-US"
+
+probes:
+  readiness:
+    custom: true
+    spec:
+      httpGet:
+        path: /healthz
+        port: 8080
+  liveness:
+    custom: true
+    spec:
+      httpGet:
+        path: /healthz
+        port: 8080
+  startup:
+    custom: true
+    spec:
+      httpGet:
+        path: /healthz
+        port: 8080
+
+# Enable when using searxng builtin rate limiter
+# Values: https://github.com/pascaliske/helm-charts/tree/master/charts/redis
+redis:
+  enabled: false
+  
