@@ -1,0 +1,11 @@
+- hosts: webservers
+  become: true
+  tasks:
+  - name: Purge cache
+    command: rm -R /tmp/nginx
+    notify: restart nginx
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted

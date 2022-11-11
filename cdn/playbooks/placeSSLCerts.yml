@@ -1,0 +1,65 @@
+- hosts: webservers
+  become: true
+  tasks: 
+  - name: create letsencrypt folder 
+    file:
+      path: /etc/letsencrypt
+      state: directory
+      owner: root
+      group: root
+      mode: '0644'
+  
+  - name: create cert folder
+    file:
+      path: /etc/letsencrypt/live
+      state: directory
+      owner: root
+      group: root
+      mode: '0644'
+  
+  - name: create cert folder api.xamh.de
+    file:
+      path: /etc/letsencrypt/live/api.xamh.de
+      state: directory
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: copy fullchain_static.pem static
+    template:
+      src: ../keysAndConfs/fullchain_static.pem
+      dest: /etc/letsencrypt/live/fullchain.pem
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: copy privkey_static.pem static
+    template:
+      src: ../keysAndConfs/privkey_static.pem
+      dest: /etc/letsencrypt/live/privkey.pem
+      owner: root
+      group: root
+      mode: '0644'
+    notify: restart nginx
+
+  - name: copy fullchain.pem api
+    template:
+      src: ../keysAndConfs/api.xamh.de/fullchain.pem
+      dest: /etc/letsencrypt/live/api.xamh.de/fullchain.pem
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: copy privkey.pem api
+    template:
+      src: ../keysAndConfs/api.xamh.de/privkey.pem
+      dest: /etc/letsencrypt/live/api.xamh.de/privkey.pem
+      owner: root
+      group: root
+      mode: '0644'
+    notify: restart nginx
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
