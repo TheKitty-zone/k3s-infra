@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mpw-ingress
+  namespace: mpw
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd, default-gzip-compress@kubernetescrd
+    external-dns.alpha.kubernetes.io/hostname: mpw.thekitty.zone    
+spec:
+  rules:
+    - host: mpw.thekitty.zone
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mpw
+                port:
+                  number: 80
+  tls:
+    - secretName: mpw-thekitty-zone-tls
+      hosts:
+        - mpw.thekitty.zone
+
