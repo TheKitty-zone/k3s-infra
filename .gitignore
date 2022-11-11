@@ -1,0 +1,8 @@
+.terraform
+.terraform.*
+*.pub
+*.key
+terraform.*
+kube.tf
+k3s-europe_*
+.DS_Store
