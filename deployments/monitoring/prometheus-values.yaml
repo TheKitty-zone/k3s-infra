@@ -13,6 +13,34 @@ prometheus:
           resources:
             requests:
               storage: 10Gi
+kubeControllerManager:
+  enabled: true
+  endpoints:
+  - 10.253.0.101
+  - 10.254.0.101
+  - 10.255.0.101
+kubeEtcd:
+  enabled: true
+  endpoints:
+  - 10.253.0.101
+  - 10.254.0.101
+  - 10.255.0.101
+  service:
+    enabled: true
+    port: 2381
+    targetPort: 2381
+kubeScheduler:
+  enabled: true
+  endpoints:
+  - 10.253.0.101
+  - 10.254.0.101
+  - 10.255.0.101
+kubeProxy:
+  enabled: true
+  endpoints:
+  - 10.253.0.101
+  - 10.254.0.101
+  - 10.255.0.101
 
 grafana:
   forceDeployDatasources: true
@@ -24,6 +52,7 @@ grafana:
     - name: Loki
       type: loki
       url: http://loki:3100
+      editable: true
   serviceMonitor:
     enabled: true
   persistence:
