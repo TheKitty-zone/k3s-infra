@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd, default-gzip-compress@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: mpw.thekitty.zone    
 spec:
   rules:
