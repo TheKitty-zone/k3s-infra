@@ -15,8 +15,7 @@ controller:
     unavailable: 1
     # -- Set deployment RollingUpdate max surge
     surge: 2
-    # -- Set statefulset RollingUpdate partition
-    partition: 33.33
+
 
   replicas: 3
 
