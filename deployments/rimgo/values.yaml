@@ -81,7 +81,7 @@ probes:
     # @default -- See below
     spec:
       httpGet:
-        port: 8080
+        port: 3000
         path: /
       initialDelaySeconds: 0
       periodSeconds: 10
@@ -103,7 +103,7 @@ probes:
     # @default -- See below
     spec:
       httpGet:
-        port: 8080
+        port: 3000
         path: /
       initialDelaySeconds: 0
       periodSeconds: 10
@@ -125,7 +125,7 @@ probes:
     # @default -- See below
     spec:
       httpGet:
-        port: 8080
+        port: 3000
         path: /
       initialDelaySeconds: 15
       timeoutSeconds: 1
