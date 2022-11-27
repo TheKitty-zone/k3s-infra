@@ -5,8 +5,6 @@ metadata:
     meta.helm.sh/release-name: prometheus-stack
     meta.helm.sh/release-namespace: monitoring
     prometheus-operator-validated: "true"
-  creationTimestamp: "2022-11-11T11:11:22Z"
-  generation: 1
   labels:
     app: kube-prometheus-stack
     app.kubernetes.io/instance: prometheus-stack
@@ -18,8 +16,6 @@ metadata:
     release: prometheus-stack
   name: prometheus-stack-kube-prom-etcd
   namespace: monitoring
-  resourceVersion: "1550834"
-  uid: f1ec784b-cd90-4a8a-8bd9-9257c891fe4e
 spec:
   groups:
   - name: etcd
@@ -121,7 +117,7 @@ spec:
         summary: etcd cluster member communication is slow.
       expr: |-
         histogram_quantile(0.99, rate(etcd_network_peer_round_trip_time_seconds_bucket{job=~".*etcd.*"}[5m]))
-        > 0.15
+        > 0.25
       for: 10m
       labels:
         severity: warning
