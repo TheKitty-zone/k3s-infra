@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: longhorn-system
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: longhorn
+  namespace: kube-system
+spec:
+  chart: longhorn
+  # Using this repo makes it compatible with Rancher
+  repo: https://charts.longhorn.io
+  targetNamespace: longhorn-system
+  valuesContent: |-
+    defaultSettings:
+      storageOverProvisioningPercentage: 200
+      storageMinimalAvailablePercentage: 25
+    persistence:
+      defaultFsType: ext4
+      defaultClassReplicaCount: 3
+      defaultClass: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: longhorn-ui-ingress
+  namespace: longhorn-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd,default-my-basic-auth@kubernetescrd
+    external-dns.alpha.kubernetes.io/hostname: longhorn.thekitty.zone    
+spec:
+  rules:
+    - host: longhorn.thekitty.zone
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: longhorn-frontend 
+                port:
+                  number: 80
+  tls:
+    - secretName: longhorn-ui-tls
+      hosts:
+        - longhorn.thekitty.zone
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: longhorn-prometheus-servicemonitor
+  namespace: monitoring
+  labels:
+    name: longhorn-prometheus-servicemonitor
+spec:
+  selector:
+    matchLabels:
+      app: longhorn-manager
+  namespaceSelector:
+    matchNames:
+    - longhorn-system
+  endpoints:
+  - port: manager
