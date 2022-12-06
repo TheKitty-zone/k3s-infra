@@ -3,20 +3,18 @@ image:
   # -- image repository
   repository: spikecodes/libreddit
   # -- image pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # -- image tag
   # this example is not automatically updated, so be sure to use the latest image
   tag: latest
 
 controller:
-  strategy:
+  strategy: "RollingUpdate"
   rollingUpdate:
     # -- Set deployment RollingUpdate max unavailable
     unavailable: 1
     # -- Set deployment RollingUpdate max surge
     surge: 2
-    # -- Set statefulset RollingUpdate partition
-    partition: 33.33
 
   replicas: 3
 

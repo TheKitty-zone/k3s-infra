@@ -9,12 +9,7 @@ image:
   tag: latest
 
 controller:
-  strategy:
-  rollingUpdate:
-    # -- Set deployment RollingUpdate max unavailable
-    unavailable: 1
-    # -- Set deployment RollingUpdate max surge
-    surge: 1
+  strategy: "RollingUpdate"
   replicas: 3
 
 

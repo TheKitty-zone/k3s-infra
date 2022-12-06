@@ -9,7 +9,7 @@ image:
   tag: master
 
 controller:
-  strategy:
+  strategy: "RollingUpdate"
   rollingUpdate:
     # -- Set deployment RollingUpdate max unavailable
     unavailable: 1
