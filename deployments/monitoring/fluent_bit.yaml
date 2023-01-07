@@ -1,4 +1,19 @@
-
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: fluentbit
+  namespace: monitoring
+spec:
+  chart: 
+  repo:  
+  targetNamespace: monitoring
+  valuesContent: |-
 serviceMonitor:
   enabled: true
   namespace: monitoring

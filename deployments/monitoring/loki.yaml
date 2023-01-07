@@ -1,19 +1,36 @@
-loki:
-  persistence:
-    enabled: true
-    # Customize this
-    size: 12Gi
-  config:
-    table_manager:
-      retention_deletes_enabled: true
-      # Customize this: how long should logs be kept?
-      retention_period: 1w
-    limits_config:
-      max_query_series: 5000
-  serviceMonitor:
-    enabled: true
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  chart: loki-stack
+  repo:  https://grafana.github.io/helm-charts
+  targetNamespace: monitoring
+  valuesContent: |-
+      loki:
+        persistence:
+          enabled: true
+          storageClass: "hcloud-volumes"
+          # Customize this
+          size: 12Gi
+        config:
+          table_manager:
+            retention_deletes_enabled: true
+            # Customize this: how long should logs be kept?
+            retention_period: 1w
+          limits_config:
+            max_query_series: 5000
+        serviceMonitor:
+          enabled: true
 
-promtail:
-  enabled: true
-fluent-bit:
-  enabled: false
+      promtail:
+        enabled: true
+      fluent-bit:
+        enabled: false

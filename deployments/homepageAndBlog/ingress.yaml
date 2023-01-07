@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
     cert-manager.io/cluster-issuer: letsencrypt-prod
     traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd, default-gzip-compress@kubernetescrd
-    external-dns.alpha.kubernetes.io/hostname: "@"
+    external-dns.alpha.kubernetes.io/hostname: "thekitty.zone"
     external-dns.alpha.kubernetes.io/ttl: "3600" #optional
     
 spec:
@@ -22,6 +22,13 @@ spec:
                 name: homepage-blog
                 port:
                   number: 80
+    # - host: thekitty.zone
+    #   http:
+    #     paths:
+    #       - path: ^(/_matrix|/_synapse/client)
+    #         pathType: Prefix
+    #         backend:
+    #           service:
   tls:
     - secretName: thekitty-zone-tls
       hosts:
