@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: invidious-ingress
+  namespace: invidious
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+    external-dns.alpha.kubernetes.io/hostname: watch.thekitty.zone
+    external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+spec:
+  rules:
+    - host: watch.thekitty.zone
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: invidious-invidious 
+                port:
+                  number: 3000
+                
+  tls:
+    - secretName: invidious-tl
+      hosts:
+        - watch.thekitty.zone
