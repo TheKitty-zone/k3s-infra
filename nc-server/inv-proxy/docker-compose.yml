@@ -1,5 +1,7 @@
+version: "3"
 services:
   yt-prox:
     image: 1337kavin/piped-proxy:latest-amd64
     ports:
     - "127.0.0.1:3001:8080"
+    restart: always
