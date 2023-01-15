@@ -16,7 +16,7 @@ spec:
   valuesContent: |-
     image:
       # -- image repository
-      repository: spikecodes/libreddit
+      repository: libreddit/libreddit
       # -- image pull policy
       pullPolicy: Always
       # -- image tag
