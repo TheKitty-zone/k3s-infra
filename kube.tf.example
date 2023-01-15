@@ -176,9 +176,9 @@ module "kube-hetzner" {
      {
        direction       = "out"
        protocol        = "tcp"
-       port            = "5432"
+       port            = "22"
        source_ips      = []
-       destination_ips = ["45.83.107.127/32"] # Won't be used for this rule 
+       destination_ips = ["0.0.0.0/0", "::/0"] # Won't be used for this rule 
      },
       {
        direction       = "out"
