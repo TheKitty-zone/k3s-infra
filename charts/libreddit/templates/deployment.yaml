@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "libreddit.fullname" . }}
+  labels:
+    app: {{ template "libreddit.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: {{ .Values.strategy }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.rollingUpdate.unavailable }}
+      maxSurge: {{ .Values.rollingUpdate.surge }}
+  selector:
+    matchLabels:
+      app: {{ template "libreddit.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "libreddit.name" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: {{ .Release.Name }}
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        env:
+        {{- range $k, $v := .Values.env }}
+        - name: {{ $k }}
+          value: {{ $v }}
+        {{- end }}
+        securityContext:
+          allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
+          capabilities:
+            drop:
+            - ALL
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            port: {{ .Values.service.port }}
+            path: /
+        livenessProbe:
+          httpGet:
+            port: {{ .Values.service.port }}
+            path: /
+          initialDelaySeconds: 15
+      restartPolicy: Always
