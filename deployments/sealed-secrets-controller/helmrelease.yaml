@@ -17,7 +17,7 @@ spec:
     crds: Create
   interval: 1h0m0s
   releaseName: sealed-secrets-controller
-  targetNamespace: flux-system
+  targetNamespace: sealed-secrets
   upgrade:
     crds: CreateReplace
 
