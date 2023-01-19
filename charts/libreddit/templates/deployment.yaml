@@ -9,7 +9,7 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
-    type: {{ .Values.strategy }}
+    type: "RollingUpdate"
     rollingUpdate:
       maxUnavailable: {{ .Values.rollingUpdate.unavailable }}
       maxSurge: {{ .Values.rollingUpdate.surge }}
@@ -53,6 +53,6 @@ spec:
         livenessProbe:
           httpGet:
             port: {{ .Values.service.port }}
-            path: /
+            path: /r/popular/new
           initialDelaySeconds: 15
       restartPolicy: Always
