@@ -1,0 +1,58 @@
+nameOverride: ""
+
+image:
+  repository: libreddit/libreddit
+  tag: master
+  pullPolicy: Always
+
+replicaCount: 3
+
+rollingUpdate:
+  # -- Set deployment RollingUpdate max unavailable
+  unavailable: 1
+  # -- Set deployment RollingUpdate max surge
+  surge: 2
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 12
+  targetCPUUtilizationPercentage: 50
+
+service:
+  type: ClusterIP
+  port: 3000
+  
+ingress:
+  class: treafik
+  middlewares:
+  - default-redirect-https@kubernetescrd
+  clusterIssuer: letsencrypt-prod
+  dns:
+    domain: reddit.thekitty.zone
+    ttl: 3600
+
+resources: 
+  requests:
+   cpu: 10m
+   memory: 50Mi
+  limits:
+   cpu: 500m
+   memory: 200Mi
+
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+env:
+  LIBREDDIT_DEFAULT_THEME: black
+  LIBREDDIT_DEFAULT_FRONT_PAGE: popular
+  LIBREDDIT_DEFAULT_LAYOUT: card
+  LIBREDDIT_DEFAULT_WIDE :	"off"
+  LIBREDDIT_DEFAULT_POST_SORT: hot
+  LIBREDDIT_DEFAULT_COMMENT_SORT: confidence
+  LIBREDDIT_DEFAULT_SHOW_NSFW: "on"
+  LIBREDDIT_DEFAULT_USE_HLS: "on"
+  LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "off"
+  LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: "off"
