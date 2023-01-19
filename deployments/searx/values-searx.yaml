@@ -62,6 +62,18 @@ searxng:
       autocomplete: "qwant"
       autocomplete_min: 4
       default_lang: "en-US"
+    hostname_replace:
+      '(.*\.)?youtube\.com$': 'watch.thekitty.zone'
+      '(.*\.)?youtu\.be$': 'watch.thekitty.zone'
+      '(.*\.)?youtube-noocookie\.com$': 'watch.thekitty.zone'
+      '(.*\.)?reddit\.com$': 'reddit.thekitty.zone'
+      '(.*\.)?redd\.it$': 'reddit.thekitty.zone'
+      '(www\.)?twitter\.com$': 'nitter.pussthecat.org'
+    engines:
+      - name: invidious
+        disabled: false
+        base_url:
+          - https://watch.thekitty.zone
 
 probes:
   readiness:
