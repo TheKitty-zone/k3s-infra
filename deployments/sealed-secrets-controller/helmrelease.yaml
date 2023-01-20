@@ -20,4 +20,12 @@ spec:
   targetNamespace: sealed-secrets
   upgrade:
     crds: CreateReplace
+  values:
+    metrics:
+      serviceMonitor:
+        enabled: true
+        namespace: monitoring
+      dashboards:
+        create: true
+        namespace: monitoring
 
