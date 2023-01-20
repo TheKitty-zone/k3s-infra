@@ -33,6 +33,13 @@ spec:
 
     controller:
       strategy: "RollingUpdate"
+      rollingUpdate:
+        # -- Set deployment RollingUpdate max unavailable
+        unavailable: 1
+        # -- Set deployment RollingUpdate max surge
+        surge: 2
+
+      replicas: 3
 
     # -- Configures service settings for the chart.
     # @default -- See values.yaml
