@@ -28,9 +28,9 @@ Interested in pod uptime and the active alerts?
 ## Planned Deployments:
 - Matrix(Needs its own Helm Chart to be written)
 - Mastodon(Requires better Storage handling and a Helm Chart as well)
+- Nextcloud(Needs RWX Volumes to be configured in Longhorn)
 
 ## Deploy Infra:
-- terraform plan --out
 - terraform apply
 
 ## Deploy Deployments:
