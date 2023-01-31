@@ -7,24 +7,24 @@ Interested in pod uptime and the active alerts?
 [Click here](https://grafana.thekitty.zone/public-dashboards/f5ea67d8defb4c8ea23aeaaa87af7fcb?orgId=1&refresh=5s)
 
 ## Deployments:
-- Invidious
-- Searx
-- MPW
-- Libreddit
-- Rimgo
-- Librarian
-- Homepage
-- Proxitok
-- PostgreSQL Cluster using the crunchy operator
-- External-dns
-- Longhorn
-- Kube-Prometheus-Stack
-- Traefik
-- Certmanager
-- Cryptpad
-- Flux
-- Loki
-- Sealed-Secrets-Controller
+- [Invidious](https://github.com/11Tuvork28/invidious)
+- [Searx](https://github.com/11Tuvork28/searxng/searxng)
+- [MPW](https://github.com/PIVX-Labs/MyPIVXWallet)
+- [Libreddit](https://github.com/libreddit/libreddit)
+- [Rimgo](https://github.com/11Tuvork28/)
+- [Librarian](https://github.com/11Tuvork28/)
+- [Homepage](https://github.com/11Tuvork28/thekitty.zone)
+- [Proxitok](https://github.com/pablouser1/ProxiTok)
+- [PostgreSQL Cluster using the crunchy operator](https://github.com/11Tuvork28/prod-postgres-operator)
+- [External-dns](https://github.com/kubernetes-sigs/external-dns)
+- [Longhorn](https://github.com/longhorn/longhorn)
+- [Kube-Prometheus-Stack]()
+- [Traefik]()
+- [Certmanager](https://cert-manager.io/docs/installation/)
+- [Cryptpad]()
+- [Flux]()
+- [Loki]()
+- [Sealed-Secrets-Controller]()
 ## Planned Deployments:
 - Matrix(Needs its own Helm Chart to be written)
 - Mastodon(Requires better Storage handling and a Helm Chart as well)
