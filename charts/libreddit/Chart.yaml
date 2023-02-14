@@ -1,7 +1,7 @@
 apiVersion: v2
 name: libreddit
 description: Libreddit is an alternative front-end to Reddit
-version: 1.0.0
+version: 1.0.1
 appVersion: 0.27.1
 keywords:
 - reddit
@@ -9,9 +9,10 @@ keywords:
 - front-end
 - privacy
 home: https://reddit.thekitty.zone
-icon: https://raw.githubusercontent.com/iv-org/libreddit/05988c1c49851b7d0094fca16aeaf6382a7f64ab/assets/favicon-32x32.png
+icon: https://raw.githubusercontent.com/libreddit/libreddit/master/static/favicon.ico
 sources:
 - https://github.com/11tuvork28/k3s-infra/tree/main/deployments/libreddit
 maintainers:
 - name: 11tuvork28
   email: zofi@xamh.de
+engine: gotpl
