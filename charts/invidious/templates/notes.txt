@@ -6,7 +6,7 @@ To learn more about the release, try:
 
   $ helm status {{ .Release.Name }}
   $ helm get all {{ .Release.Name }}
-{{- if !.Values.secret.enabled -}}
+{{- if not .Values.secret.enabled -}}
 Please create a sealed secret name {{ template "invidious.name" . }}-secret
 with 2 keys:
 - db_values (should hold the values for db found in config.yaml)

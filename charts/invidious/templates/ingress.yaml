@@ -9,7 +9,7 @@ metadata:
     {{- if  .Values.ingress.certManager.enabled -}}
     cert-manager.io/cluster-issuer: {{ .Values.ingress.certManager.clusterIssuer }}
     {{- end -}}
-    {{- if .Values.ingress.ingressClass == "traefik" -}}
+    {{- if eq .Values.ingress.ingressClass "traefik" -}}
     traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.ingress.middlewares }}
     {{- end -}}
     {{- if .Values.ingress.externalDns.enabled -}}
