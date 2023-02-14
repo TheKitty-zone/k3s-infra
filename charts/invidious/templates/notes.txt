@@ -1,0 +1,14 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+{{- if !.Values.secret.enabled -}}
+Please create a sealed secret name {{ template "invidious.name" . }}-secret
+with 2 keys:
+- db_values (should hold the values for db found in config.yaml)
+- hmac_key(Random characters use openssl rand -hex 20)
+{{- end -}}
