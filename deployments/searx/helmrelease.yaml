@@ -11,7 +11,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: searxng
+        name: bjw-s
       version: '>=1.0.0'
   interval: 1h0m0s
   releaseName: searxng
