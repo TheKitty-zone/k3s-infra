@@ -1,0 +1,122 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vaultwarden
+  namespace: vaultwarden
+spec:
+  chart:
+    spec:
+      chart: app-template
+      # -- Version of the app-template helm chart
+      # this example is not automatically updated, so be sure to use the latest chart version
+      version: lastest
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-helm-charts
+        namespace: flux-system
+  interval: 1h0m0s
+  releaseName: vaultwarden
+  targetNamespace: vaultwarden
+  values:
+    image:
+      # -- image repository
+      repository: vaultwarden/server
+      # -- image pull policy
+      pullPolicy: Always
+      # -- image tag
+      # this example is not automatically updated, so be sure to use the latest image
+      tag: latest
+
+    strategy:
+      type: Recreate
+
+    # -- environment variables.
+    # See [image docs](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) for more details.
+    env:
+      # -- Config dir
+      DATA_FOLDER: "config"
+      DATABASE_URL:
+        valueFrom:
+          secretKeyRef:
+            name: vaultwarden-secrets
+            key: DATABASE_URL
+      WEBSOCKET_ENABLED: true
+      SIGNUPS_DOMAINS_WHITELIST: thekitty.zone,xamh.de
+      SIGNUPS_ALLOWED: false
+      SIGNUPS_VERIFY: true
+      SIGNUPS_VERIFY_RESEND_LIMIT: 6
+      ADMIN_TOKEN:
+       valueFrom:
+          secretKeyRef:
+            name: vaultwarden-secrets
+            key: ADMIN_TOKEN
+      SMTP_USERNAME: 
+       valueFrom:
+          secretKeyRef:
+            name: vaultwarden-secrets
+            key: SMTP_USERNAME
+      SMTP_PASSWORD:
+       valueFrom:
+          secretKeyRef:
+            name: vaultwarden-secrets
+            key: SMTP_PASSWORD
+      SMTP_HOST:
+       valueFrom:
+          secretKeyRef:
+            name: vaultwarden-secrets
+            key: SMTP_HOST
+      SMTP_FROM:
+       valueFrom:
+          secretKeyRef:
+            name: vaultwarden-secrets
+            key: SMTP_FROM
+    # -- Configures service settings for the chart.
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+          websocket:
+            enabled: true
+            port: 3012
+
+    ingress:
+      # -- Enable and configure ingress settings for the chart under this key.
+      main:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+          external-dns.alpha.kubernetes.io/hostname: vault.thekitty.zone
+          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+        ingressClassName: traefik
+        enabled: true
+        hosts:
+          - host: vault.thekitty.zone
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: http
+              - path: /notifications/hub/negotiate
+                pathType: Prefix
+                service:
+                  port: http
+              - path: /notifications/hub
+                pathType: Prefix
+                service:
+                  port: websocket
+        tls:
+          - secretName: vaultwarden-tls
+            hosts:
+              - vault.thekitty.zone
+
+    # -- Configure persistence settings for the chart under this key.
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        mountPath: /config
