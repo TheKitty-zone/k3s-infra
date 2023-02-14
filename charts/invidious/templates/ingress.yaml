@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: {{ template "invidious.name" . }}-ingress
   namespace: invidious
-  annotations:
+  annotations: |
     kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass }}
     {{- if  .Values.ingress.certManager.enabled -}}
     cert-manager.io/cluster-issuer: {{ .Values.ingress.certManager.clusterIssuer }}
@@ -16,8 +16,8 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.domain }}
     external-dns.alpha.kubernetes.io/ttl: {{ .Values.ingress.externalDns.ttl }}
     {{- end -}}
-    {{- with .Values.ingress.annotations -}}
-    {{- toYaml . | indent 8 -}}
+    {{- range $key, $value := .Values.ingress.annotations -}}
+    {{ $key }}: {{ $value | quote }}
     {{- end -}}
   labels:
     app: {{ template "invidious.name" . }}

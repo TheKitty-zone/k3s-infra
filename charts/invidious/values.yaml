@@ -6,13 +6,23 @@ image:
   tag: latest
   pullPolicy: Always
 
-replicaCount: 1
+# -- Configure the update strategy
+# Currently only RollingUpdate is supported
+# @default -- See below
+strategy: "RollingUpdate"
+rollingUpdate:
+  unavailable: 1
+  surge: 0
+  replicaCount: 1
 
+# -- Configure the HPA
+# minReplicas should match replicaCount
+# @default -- See below
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 16
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 75
 
 service:
   type: ClusterIP
@@ -49,6 +59,25 @@ secret:
     host: service-name.postgres-namespace.svc
     port: 5432
     dbname: invidious
+
+# -- Configure the ingress definition
+# Note: middlewares are only supported when using traefik
+# Nginx ingress controller options can be added under annotations
+# @default -- See below
+ingress:
+  enabled: true
+  domain: ""
+  ingressClass: traefik
+  certManager:
+    enabled: true
+    clusterIssuer: letsencrypt-prod
+  middlewares:
+  - default-redirect-https@kubernetescrd
+  - invidious-inv-ratelimit@kubernetescrd
+  externalDns:
+    enabled: true
+    ttl: "3600"
+  annotations: {}
 
 # -- Configure invidious to your needs
 # Note that the hmac parametes is generated behind the scenes for you.
