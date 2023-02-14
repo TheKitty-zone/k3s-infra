@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-CHART_DIRS="$(git diff --find-renames --name-only "$(git rev-parse --abbrev-ref HEAD)" origin/main -- charts | grep '[cC]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"
+CHART_DIRS="$(git diff --find-renames --name-only "$(git rev-parse --abbrev-ref HEAD)" remotes/origin/main -- charts | cut -d '/' -f 2 | uniq)"
 KUBEVAL_VERSION="0.16.1"
 SCHEMA_LOCATION="https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/"
 
@@ -11,5 +11,8 @@ tar -xf /tmp/kubeval.tar.gz kubeval
 
 # validate charts
 for CHART_DIR in ${CHART_DIRS}; do
-  helm template "${CHART_DIR}" | ./kubeval --strict --ignore-missing-schemas --kubernetes-version "${KUBERNETES_VERSION#v}" --schema-location "${SCHEMA_LOCATION}"
+  (cd "charts/${CHART_DIR}"; helm dependency build)
+  helm template | ./kubeval --strict \
+  --ignore-missing-schemas --kubernetes-version \
+  "${KUBERNETES_VERSION#v}" --schema-location "${SCHEMA_LOCATION}"
 done
