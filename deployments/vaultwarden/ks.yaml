@@ -5,9 +5,8 @@ kind: Kustomization
 metadata:
   name: vaultwarden
   namespace: flux-system
-  labels:
 spec:
-  interval: 1h0m0s
+  interval: 10m
   path: "./deployments/vaultwarden/app"
   prune: true
   sourceRef:
