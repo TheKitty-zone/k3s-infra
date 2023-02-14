@@ -1,5 +1,5 @@
-{{ template "chart.Name" . }}
-{{ template "chart.Description" . }}
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
 
 ## Installing the Chart
 
@@ -7,7 +7,7 @@ To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo add 11tuvork28 https://11tuvork28.github.io
-$ helm install my-release 11tuvork28/{{ template "chart.Name" . }}
+$ helm install my-release 11tuvork28/{{ template "chart.name" . }}
 ```
 
 {{ template "chart.valuesSection" . }}

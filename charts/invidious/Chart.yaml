@@ -16,3 +16,4 @@ maintainers:
 - name: 11Tuvork28
   email: zofi@xamh.de
   url: https://github.com/11tuvork28/
+engine: gotpl
