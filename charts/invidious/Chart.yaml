@@ -1,0 +1,18 @@
+apiVersion: v2
+name: invidious
+description: Invidious is an alternative front-end to YouTube
+version: 1.0.0
+appVersion: "latest"
+keywords:
+- youtube
+- proxy
+- video
+- privacy
+home: https://invidio.io/
+icon: https://raw.githubusercontent.com/iv-org/invidious/05988c1c49851b7d0094fca16aeaf6382a7f64ab/assets/favicon-32x32.png
+sources:
+- https://github.com/11tuvork28/invidious
+maintainers:
+- name: 11Tuvork28
+  email: zofi@xamh.de
+  url: https://github.com/11tuvork28/

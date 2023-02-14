@@ -1,0 +1,60 @@
+name: invidious
+
+image:
+  # Custom image, not recommended for personal use
+  repository: ghcr.io/11tuvork28/invidious
+  tag: latest
+  pullPolicy: Always
+
+replicaCount: 1
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 16
+  targetCPUUtilizationPercentage: 50
+
+service:
+  type: ClusterIP
+  port: 3000
+
+# -- Configure resource limits here
+# My custom image never exceeds 1024Mi, highest I have seen is 870Mi
+# @default -- See below
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 800m
+    memory: 1024Mi
+# -- Configure the secruity Context below
+# Invdious doesn't need special permissions to run
+# @default -- See below
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+# -- Configure the secret that holds sensitive infos
+# We assume that sealed-secrets are used, if not enable below
+# We also assume an external postgres cluster is being used
+# @default -- See below
+secret:
+  enabled: false
+  db:
+    user: kemal
+    password: kemal
+    host: invidious-postgresql@
+    port: 5432
+    dbname: invidious
+
+# -- Configure invidious to your needs
+# Note that the hmac parametes is generated behind the scenes for you.
+# [[ref]](https://github.com/11tuvork28/invidious/blob/master/config/config.example.yml)
+# @default -- See below
+config:
+  https_only: true
+  domain: ""
+  statistics_enabled: true
