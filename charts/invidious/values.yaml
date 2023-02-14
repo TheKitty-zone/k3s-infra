@@ -38,7 +38,7 @@ securityContext:
   fsGroup: 1000
 
 # -- Configure the secret that holds sensitive infos
-# We assume that sealed-secrets are used, if not enable below
+# We assume that sealed-secrets are used, if not enable below and set the db values accordingly otherwise this should be ignored
 # We also assume an external postgres cluster is being used
 # @default -- See below
 secret:
@@ -46,7 +46,7 @@ secret:
   db:
     user: kemal
     password: kemal
-    host: invidious-postgresql@
+    host: service-name.postgres-namespace.svc
     port: 5432
     dbname: invidious
 
