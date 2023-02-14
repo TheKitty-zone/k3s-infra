@@ -7,12 +7,17 @@ image:
 
 replicaCount: 3
 
+# -- Configure the RollingUpdate
+# @default -- See below
 rollingUpdate:
   # -- Set deployment RollingUpdate max unavailable
   unavailable: 1
   # -- Set deployment RollingUpdate max surge
   surge: 2
 
+# -- Configure the HPA
+# minReplicas should match replicaCount
+# @default -- See below
 autoscaling:
   enabled: true
   minReplicas: 3
@@ -23,6 +28,8 @@ service:
   type: ClusterIP
   port: 3000
 
+# -- Configure the ingress definition
+# @default -- See below
 ingress:
   class: treafik
   middlewares:
@@ -32,6 +39,9 @@ ingress:
     domain: reddit.thekitty.zone
     ttl: 3600
 
+# -- Configure resource limits here
+# I haven't Libreddit using more than 200Mi
+# @default -- See below
 resources:
   requests:
     cpu: 10m
@@ -40,11 +50,18 @@ resources:
     cpu: 500m
     memory: 200Mi
 
+# -- Configure the secruity Context below
+# Libreddit doesn't need special permissions to run
+# @default -- See below
 securityContext:
   allowPrivilegeEscalation: false
   runAsUser: 1000
   runAsGroup: 1000
   fsGroup: 1000
+
+# -- Configure Libreddit
+# [[ref]](https://github.com/libreddit/libreddit/blob/master/app.json)
+# @default -- See below
 env:
   LIBREDDIT_DEFAULT_THEME: black
   LIBREDDIT_DEFAULT_FRONT_PAGE: popular

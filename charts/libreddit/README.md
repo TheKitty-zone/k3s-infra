@@ -28,40 +28,19 @@ $ helm install my-release 11tuvork28/libreddit
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| autoscaling.enabled | bool | `true` |  |
-| autoscaling.maxReplicas | int | `12` |  |
-| autoscaling.minReplicas | int | `3` |  |
-| autoscaling.targetCPUUtilizationPercentage | int | `50` |  |
-| env.LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS | string | `"off"` |  |
-| env.LIBREDDIT_DEFAULT_COMMENT_SORT | string | `"confidence"` |  |
-| env.LIBREDDIT_DEFAULT_FRONT_PAGE | string | `"popular"` |  |
-| env.LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION | string | `"off"` |  |
-| env.LIBREDDIT_DEFAULT_LAYOUT | string | `"card"` |  |
-| env.LIBREDDIT_DEFAULT_POST_SORT | string | `"hot"` |  |
-| env.LIBREDDIT_DEFAULT_SHOW_NSFW | string | `"on"` |  |
-| env.LIBREDDIT_DEFAULT_THEME | string | `"black"` |  |
-| env.LIBREDDIT_DEFAULT_USE_HLS | string | `"on"` |  |
-| env.LIBREDDIT_DEFAULT_WIDE | string | `"off"` |  |
+| autoscaling | object | See below | Configure the HPA minReplicas should match replicaCount |
+| env | object | See below | Configure Libreddit [[ref]](https://github.com/libreddit/libreddit/blob/master/app.json) |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"libreddit/libreddit"` |  |
 | image.tag | string | `"master"` |  |
-| ingress.class | string | `"treafik"` |  |
-| ingress.clusterIssuer | string | `"letsencrypt-prod"` |  |
-| ingress.dns.domain | string | `"reddit.thekitty.zone"` |  |
-| ingress.dns.ttl | int | `3600` |  |
-| ingress.middlewares[0] | string | `"default-redirect-https@kubernetescrd"` |  |
+| ingress | object | See below | Configure the ingress definition |
 | nameOverride | string | `""` |  |
 | replicaCount | int | `3` |  |
-| resources.limits.cpu | string | `"500m"` |  |
-| resources.limits.memory | string | `"200Mi"` |  |
-| resources.requests.cpu | string | `"10m"` |  |
-| resources.requests.memory | string | `"50Mi"` |  |
+| resources | object | See below | Configure resource limits here I haven't Libreddit using more than 200Mi |
+| rollingUpdate | object | See below | Configure the RollingUpdate |
 | rollingUpdate.surge | int | `2` | Set deployment RollingUpdate max surge |
 | rollingUpdate.unavailable | int | `1` | Set deployment RollingUpdate max unavailable |
-| securityContext.allowPrivilegeEscalation | bool | `false` |  |
-| securityContext.fsGroup | int | `1000` |  |
-| securityContext.runAsGroup | int | `1000` |  |
-| securityContext.runAsUser | int | `1000` |  |
+| securityContext | object | See below | Configure the secruity Context below Libreddit doesn't need special permissions to run |
 | service.port | int | `3000` |  |
 | service.type | string | `"ClusterIP"` |  |
 
