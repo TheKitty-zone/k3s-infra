@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: searxng
+  name: bjw-s
   namespace: flux-system
 spec:
-  interval: 1h0m0s
+  interval: 30m
   url: https://bjw-s.github.io/helm-charts/
-
+  timeout: 3m
