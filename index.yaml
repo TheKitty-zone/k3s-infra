@@ -1,0 +1,48 @@
+apiVersion: v1
+entries:
+  invidious:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-02-14T16:53:49.341884371Z"
+    description: Invidious is an alternative front-end to YouTube
+    digest: 4d213ba4dda77dbd80634af20b4983448ccf60317687aa076755983052f9133e
+    home: https://invidious.io/
+    icon: https://raw.githubusercontent.com/iv-org/invidious/05988c1c49851b7d0094fca16aeaf6382a7f64ab/assets/favicon-32x32.png
+    keywords:
+    - youtube
+    - proxy
+    - video
+    - privacy
+    maintainers:
+    - email: zofi@xamh.de
+      name: 11Tuvork28
+      url: https://github.com/11tuvork28/
+    name: invidious
+    sources:
+    - https://github.com/11tuvork28/invidious
+    urls:
+    - https://github.com/11Tuvork28/k3s-infra/releases/download/invidious-1.0.0/invidious-1.0.0.tgz
+    version: 1.0.0
+  libreddit:
+  - apiVersion: v2
+    appVersion: 0.27.1
+    created: "2023-02-14T16:53:49.578480168Z"
+    description: Libreddit is an alternative front-end to Reddit
+    digest: ef0666d26b6f67227d6ffff43584f06af4a58688d52636dc7c6d87176e06ecec
+    home: https://reddit.thekitty.zone
+    icon: https://raw.githubusercontent.com/libreddit/libreddit/master/static/favicon.ico
+    keywords:
+    - reddit
+    - proxy
+    - front-end
+    - privacy
+    maintainers:
+    - email: zofi@xamh.de
+      name: 11tuvork28
+    name: libreddit
+    sources:
+    - https://github.com/11tuvork28/k3s-infra/tree/main/deployments/libreddit
+    urls:
+    - https://github.com/11Tuvork28/k3s-infra/releases/download/libreddit-1.0.2/libreddit-1.0.2.tgz
+    version: 1.0.2
+generated: "2023-02-14T16:53:49.578485468Z"
