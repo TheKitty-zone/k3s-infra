@@ -7,10 +7,11 @@ metadata:
 spec:
   chart:
     spec:
+      reconcileStrategy: Revision
       chart: app-template
       # -- Version of the app-template helm chart
       # this example is not automatically updated, so be sure to use the latest chart version
-      version: lastest
+      version: '>=1.0.0'
       interval: 15m
       sourceRef:
         kind: HelmRepository
@@ -47,6 +48,9 @@ spec:
       SIGNUPS_ALLOWED: false
       SIGNUPS_VERIFY: true
       SIGNUPS_VERIFY_RESEND_LIMIT: 6
+      LOG_LEVEL: trace
+      DOMAIN: https://vault.thekitty.zone
+      SMTP_DEBUG: true
       ADMIN_TOKEN:
        valueFrom:
           secretKeyRef:
@@ -86,11 +90,12 @@ spec:
       # -- Enable and configure ingress settings for the chart under this key.
       main:
         annotations:
+          kubernetes.io/ingress.class: traefik
           cert-manager.io/cluster-issuer: letsencrypt-prod
           traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
           external-dns.alpha.kubernetes.io/hostname: vault.thekitty.zone
           external-dns.alpha.kubernetes.io/ttl: "3600" #optional
-        ingressClassName: traefik
+        ingressClassName: ""
         enabled: true
         hosts:
           - host: vault.thekitty.zone
@@ -98,15 +103,15 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  port: http
+                  port: 80
               - path: /notifications/hub/negotiate
                 pathType: Prefix
                 service:
-                  port: http
+                  port: 80
               - path: /notifications/hub
                 pathType: Prefix
                 service:
-                  port: websocket
+                  port: 3012
         tls:
           - secretName: vaultwarden-tls
             hosts:
