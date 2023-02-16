@@ -1,22 +1,25 @@
 ---
-apiVersion: v1
-kind: Namespace
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
   name: crypt-pad
----
-apiVersion: helm.cattle.io/v1
-kind: HelmChart
-metadata:
-  name: cryptpad
-  namespace: crypt-pad
+  namespace: flux-system
 spec:
-  chart: app-template
-  repo: https://bjw-s.github.io/helm-charts/
+  chart:
+    spec:
+      chart: app-template
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+      version: '>=1.0.0'
+  interval: 1h0m0s
+  releaseName: crypt-pad
   targetNamespace: crypt-pad
-  valuesContent: |-
+  values:
     image:
       repository: ghcr.io/nicholaswilde/cryptpad
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
       tag: "latest"
     controller:
       strategy:
@@ -386,57 +389,3 @@ spec:
           ## This means it has a maximum of 5*30=150 seconds to start up before it fails
           periodSeconds: 5
           failureThreshold: 30
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: cryptpad
-  namespace: crypt-pad
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
-    external-dns.alpha.kubernetes.io/hostname: cryptpad.thekitty.zone
-spec:
-  rules:
-    - host: cryptpad.thekitty.zone
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: cryptpad
-                port:
-                  number: 3000
-  tls:
-    - secretName: cryptpad-thekitty-zone-tls
-      hosts:
-        - cryptpad.thekitty.zone
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: cryptpad-sandbox
-  namespace: crypt-pad
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
-    external-dns.alpha.kubernetes.io/hostname: sc.cryptpad.thekitty.zone  
-spec:
-  rules:
-    - host: sc.thekitty.zone
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: cryptpad
-                port:
-                  number: 3000
-  tls:
-    - secretName: sc-cryptpad-thekitty-zone-tls
-      hosts:
-         - sc.thekitty.zone
