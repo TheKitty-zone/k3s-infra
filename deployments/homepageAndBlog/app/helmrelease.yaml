@@ -1,19 +1,22 @@
 ---
-apiVersion: v1
-kind: Namespace
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
   name: homepage-blog
----
-apiVersion: helm.cattle.io/v1
-kind: HelmChart
-metadata:
-  name: homepage-blog
-  namespace: homepage-blog
+  namespace: flux-system
 spec:
-  chart: app-template
-  repo: https://bjw-s.github.io/helm-charts/
+  chart:
+    spec:
+      chart: app-template
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+      version: '>=1.0.0'
+  interval: 1h0m0s
+  releaseName: homepage-blog
   targetNamespace: homepage-blog
-  valuesContent: |-
+  values:
     image:
       # -- image repository
       repository:  ghcr.io/11tuvork28/thekitty.zone
@@ -37,7 +40,25 @@ spec:
     ingress:
       # -- Enable and configure ingress settings for the chart under this key.
       main:
-        enabled: false
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+          external-dns.alpha.kubernetes.io/hostname: "@"
+          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+        ingressClassName: ""
+        enabled: true
+        hosts:
+          - host: thekitty.zone
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: 80
+        tls:
+          - secretName: thekitty.zone-tls
+            hosts:
+              - thekitty.zone
 
     probes:
       # -- Liveness probe configuration
