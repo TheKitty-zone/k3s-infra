@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      reconcileStrategy: ChartVersion
+      reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
         name: bjw-s
