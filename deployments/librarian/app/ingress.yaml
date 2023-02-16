@@ -9,7 +9,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: lbry.thekitty.zone
     external-dns.alpha.kubernetes.io/ttl: "3600" #optional
-    
 spec:
   rules:
     - host: lbry.thekitty.zone
