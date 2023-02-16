@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: sealed-secrets
-      reconcileStrategy: ChartVersion
+      reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
         name: sealed-secrets
@@ -17,7 +17,7 @@ spec:
     crds: Create
   interval: 1h0m0s
   releaseName: sealed-secrets-controller
-  targetNamespace: sealed-secrets
+  targetNamespace: kube-system
   upgrade:
     crds: CreateReplace
   values:
