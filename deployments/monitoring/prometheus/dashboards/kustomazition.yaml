@@ -1,0 +1,14 @@
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+configMapGenerator:
+- name: grafana-dashboards
+  files:
+    - mpw.json
+    - traefik.json
+    - flux-cluster.json
+    - flux-control-plane.json
+    - flux-logs.json
+generatorOptions:
+ disableNameSuffixHash: true
