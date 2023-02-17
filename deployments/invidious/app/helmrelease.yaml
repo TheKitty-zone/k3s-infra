@@ -1,0 +1,117 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: invdious
+spec:
+  chart:
+    spec:
+      reconcileStrategy: Revision
+      chart: invdious
+      # -- Version of the app-template helm chart
+      # this example is not automatically updated, so be sure to use the latest chart version
+      version: '>=1.0.0'
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: home-repo
+        namespace: flux-system
+  interval: 1h0m0s
+  releaseName: invdious
+  targetNamespace: invdious
+  values:
+    name: invidious
+    image:
+      # Custom image, not recommended for personal use
+      repository: ghcr.io/11tuvork28/invidious
+      tag: latest
+      pullPolicy: Always
+
+    # -- Configure the update strategy
+    # Currently only RollingUpdate is supported
+    # @default -- See below
+    strategy: "RollingUpdate"
+    rollingUpdate:
+      unavailable: 2
+      surge: 0
+      replicaCount: 3
+
+    # -- Configure the HPA
+    # minReplicas should match replicaCount
+    # @default -- See below
+    autoscaling:
+      enabled: true
+      minReplicas: 3
+      maxReplicas: 16
+      targetCPUUtilizationPercentage: 75
+
+    service:
+      type: ClusterIP
+      port: 3000
+
+    # -- Configure resource limits here
+    # My custom image never exceeds 1024Mi, highest I have seen is 870Mi
+    # @default -- See below
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+      limits:
+        cpu: 800m
+        memory: 1024Mi
+    # -- Configure the secruity Context below
+    # Invdious doesn't need special permissions to run
+    # @default -- See below
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+
+    # -- Configure the secret that holds sensitive infos
+    # We assume that sealed-secrets are used, if not enable below and set the db values accordingly otherwise this should be ignored
+    # We also assume an external postgres cluster is being used
+    # @default -- See below
+    secret:
+      enabled: false
+      db:
+        user: kemal
+        password: kemal
+        host: service-name.postgres-namespace.svc
+        port: 5432
+        dbname: invidious
+
+    # -- Configure the ingress definition
+    # Note: middlewares are only supported when using traefik
+    # Nginx ingress controller options can be added under annotations
+    # @default -- See below
+    ingress:
+      enabled: true
+      domain: "watch.thekitty.zone"
+      ingressClass: traefik
+      certManager:
+        enabled: true
+        clusterIssuer: letsencrypt-prod
+      middlewares:
+      - default-redirect-https@kubernetescrd
+      - invidious-inv-ratelimit@kubernetescrd
+      externalDns:
+        enabled: true
+        ttl: "3600"
+      annotations: {}
+
+    # -- Configure invidious to your needs
+    # Note that the hmac parametes is generated behind the scenes for you.
+    # [[ref]](https://github.com/11tuvork28/invidious/blob/master/config/config.example.yml)
+    # @default -- See below
+    config:
+      https_only: true
+      domain: "watch.thekitty.zone"
+      statistics_enabled: true
+      external_port: 443
+      use_pubsub_feeds: true
+      modified_source_code_url: "https://github.com/11Tuvork28/invidious/"
+      hsts: true
+      enable_user_notifications: false
+      disable_proxy: ['downloads']
