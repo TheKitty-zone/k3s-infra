@@ -43,7 +43,7 @@ spec:
         - name: INVIDIOUS_CONFIG_DB
           valueFrom:
             secretKeyRef:
-              name: invidious-secret
+              name: {{ template "invidious.fullname" . }}-secret
               key: db_values
         - name: INVIDIOUS_CONFIG_HMAC
           valueFrom:
