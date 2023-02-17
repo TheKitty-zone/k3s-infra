@@ -23,8 +23,11 @@ spec:
         ports:
         - containerPort: 9094
         env:
-          - name: DISCORD_WEBHOOK
-            value: ''
+        - name: DISCORD_WEBHOOK
+          valueFrom:
+            secretKeyRef: 
+              name: alertmanager-discord-secret
+              key: DISCORD_WEBHOOK
 ---
 apiVersion: v1
 kind: Service

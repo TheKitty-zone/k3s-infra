@@ -10,3 +10,5 @@ resources:
   - ./prometheusrules
   - ./serviceMonitors
   - ./dashboards
+  - ./sealed-secret-alermanager-discord.yaml
+  - ./alertmanager-discord.yaml
