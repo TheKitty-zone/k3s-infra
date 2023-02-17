@@ -3,6 +3,28 @@ entries:
   invidious:
   - apiVersion: v2
     appVersion: latest
+    created: "2023-02-17T12:51:52.239600643Z"
+    description: Invidious is an alternative front-end to YouTube
+    digest: 89a06b39797a5f25c5636728874937cebe1b1b7a35b04b3a2dbee69c53a9d4a4
+    home: https://invidious.io/
+    icon: https://raw.githubusercontent.com/iv-org/invidious/05988c1c49851b7d0094fca16aeaf6382a7f64ab/assets/favicon-32x32.png
+    keywords:
+    - youtube
+    - proxy
+    - video
+    - privacy
+    maintainers:
+    - email: zofi@xamh.de
+      name: 11Tuvork28
+      url: https://github.com/11tuvork28/
+    name: invidious
+    sources:
+    - https://github.com/11tuvork28/invidious
+    urls:
+    - https://github.com/11Tuvork28/k3s-infra/releases/download/invidious-1.1.0/invidious-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-02-14T16:53:49.341884371Z"
     description: Invidious is an alternative front-end to YouTube
     digest: 4d213ba4dda77dbd80634af20b4983448ccf60317687aa076755983052f9133e
@@ -45,4 +67,4 @@ entries:
     urls:
     - https://github.com/11Tuvork28/k3s-infra/releases/download/libreddit-1.0.2/libreddit-1.0.2.tgz
     version: 1.0.2
-generated: "2023-02-14T16:53:49.578485468Z"
+generated: "2023-02-17T12:51:52.239607743Z"
