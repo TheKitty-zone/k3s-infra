@@ -7,4 +7,3 @@ resources:
   - ./searx-ingress.yaml
   - ./searx-secret-sealed.yaml
   - ./helmrelease.yaml
-  - ./helmrepository.yaml
