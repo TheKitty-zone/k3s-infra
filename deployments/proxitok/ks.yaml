@@ -1,0 +1,47 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: redis
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: "./deployments/proxitok/redis"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k3s-infra
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: signer
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: "./deployments/proxitok/signer"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k3s-infra
+  wait: true
+  dependsOn:
+  - name: redis
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: proxitok
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: "./deployments/proxitok/app"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k3s-infra
+  wait: true
+  dependsOn:
+  - name: redis
+  - name: signer
