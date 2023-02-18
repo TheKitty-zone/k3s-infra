@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: firefly
+  namespace: firefly
+spec:
+  chart:
+    spec:
+      reconcileStrategy: Revision
+      chart: firefly-iii-stack
+      # -- Version of the app-template helm chart
+      # this example is not automatically updated, so be sure to use the latest chart version
+      version: '>=1.0.0'
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: firefly
+        namespace: flux-system
+  interval: 1h0m0s
+  releaseName: firefly
+  targetNamespace: firefly
+  values:
+    firefly-db:
+      # if you set this to false it will not be installed
+      enabled: false
+
+    firefly-iii:
+      # -- Set to false to not deploy Firefly III
+      enabled: true
+      persistence:
+        # -- If you set this to false, uploaded attachments are not stored persistently and will be lost with every restart of the pod
+        enabled: true
+        storageClassName: "hcloud-volumes"
+        accessModes: ReadWriteOnce
+        storage: 10Gi
+      config:
+        # -- Set this to the name of a secret to load environment variables from. If defined, values in the secret will override values in config.env
+        existingSecret: firefly-secret
+        envValueFrom:
+          SITE_OWNER: SITE_OWNER
+          APP_KEY: APP_KEY
+          DB_CONNECTION: DB_CONNECTION
+          DB_HOST: DB_HOST
+          DB_PORT: DB_PORT
+          DB_DATABASE: DB_DATABASE
+          DB_USERNAME: DB_USERNAME
+          DB_PASSWORD: DB_PASSWORD
+          MAIL_MAILER: MAIL_MAILER
+          MAIL_HOST: MAIL_HOST
+          MAIL_PORT: MAIL_PORT
+          MAIL_FROM: MAIL_FROM
+          MAIL_USERNAME: MAIL_USERNAME
+          MAIL_PASSWORD: MAIL_PASSWORD
+          MAIL_ENCRYPTION: MAIL_ENCRYPTION
+          STATIC_CRON_TOKEN: STATIC_CRON_TOKEN
+          TRUSTED_PROXIES: TRUSTED_PROXIES
+      # -- A cronjob for [recurring Firefly III tasks](https://docs.firefly-iii.org/firefly-iii/advanced-installation/cron/).
+      cronjob:
+        # -- Set to true to enable the CronJob. Note that you need to specify either cronjob.auth.existingSecret or cronjob.auth.token for it to actually be deployed.
+        enabled: true
+
+        # -- Authorization for the CronJob. See https://docs.firefly-iii.org/firefly-iii/advanced-installation/cron/#request-a-page-over-the-web
+        auth:
+          # -- The name of a secret containing a data.token field with the cronjob token
+          existingSecret: "firefly-secret"
+
+          # -- The name of the key in the existing secret to get the cronjob token from
+          secretKey: "TOKEN"
+      ingress:
+        enabled: true
+        className: ""
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+          external-dns.alpha.kubernetes.io/hostname: "firefly.thekitty.zone"
+          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+        hosts:
+          - firefly.thekitty.zone
+        tls:
+          - secretName: firefly-tls
+            hosts:
+             - firefly.thekitty.zone
+    importer:
+      # -- Set to false to not deploy the importer
+      enabled: true
