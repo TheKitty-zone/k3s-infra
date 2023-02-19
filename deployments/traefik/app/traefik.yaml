@@ -28,15 +28,17 @@ spec:
       - "--entryPoints.web.forwardedHeaders.trustedIPs=127.0.0.1/32,10.0.0.0/8"
       - "--entryPoints.websecure.forwardedHeaders.trustedIPs=127.0.0.1/32,10.0.0.0/8"
       - "--accesslog=false"
-      - "--accesslog.bufferingsize=100"
-      - "--accesslog.format=json"
-      - "--accesslog.fields.headers.defaultmode=keep"
-      - "--accesslog.fields.headers.names.Authorization=drop"
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.addEntryPointsLabels=true"
       - "--metrics.prometheus.addrouterslabels=true"
       - "--metrics.prometheus.addServicesLabels=true"
-
+      - "--entryPoints.pgbouncer.address=:5432/tcp"
+    ports:
+      pgbouncer:
+        expose: true
+        port: 5432
+        exposedPort: 5432
+        protocol: TCP
             
     deployment:
       replicas: 3
