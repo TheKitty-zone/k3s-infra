@@ -20,7 +20,7 @@ spec:
   values:
     image:
       # -- image repository
-      repository:  ghcr.io/thekitty/thekitty.zone
+      repository:  ghcr.io/thekitty-zone/thekitty.zone
       # -- image pull policy
       pullPolicy: Always
       # -- image tag
