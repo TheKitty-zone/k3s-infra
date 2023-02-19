@@ -68,6 +68,9 @@ spec:
     - name: vaultwarden
       databases:
         - vaultwarden
+    - name: firefly
+      databases:
+        - firefly
 
   proxy:
     pgBouncer:
