@@ -11,4 +11,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k3s-infra
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: HelmRelease
+      name: mpw
+      namespace: flux-system
   wait: true
