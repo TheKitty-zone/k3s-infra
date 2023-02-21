@@ -15,7 +15,7 @@ spec:
         name: home-repo
         namespace: flux-system
   interval: 1h0m0s
-  releaseName: invdious
+  releaseName: invidious
   targetNamespace: invdious
   values:
     name: invidious
