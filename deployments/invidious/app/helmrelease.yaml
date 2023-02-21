@@ -93,6 +93,7 @@ spec:
       middlewares:
       - default-redirect-https@kubernetescrd
       - invidious-inv-ratelimit@kubernetescrd
+      - inv-in-flight-limit@kubernetescrd
       externalDns:
         enabled: true
         ttl: "3600"

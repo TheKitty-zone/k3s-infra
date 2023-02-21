@@ -5,3 +5,4 @@ namespace: postgres-operator
 resources:
 - postgres.yaml
 - configMaps.yaml
+- ./postgresingressroute.yaml
