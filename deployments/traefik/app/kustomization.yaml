@@ -6,5 +6,5 @@ resources:
   - ./traefik.yaml
   - ./middleware
   - ./postgresingressroute.yaml
-  - ./trarfik-dashboard-ingress.yaml
+  - ./traefik-dashboard-ingress.yaml
   - ./treafik-dashboard-service.yaml
