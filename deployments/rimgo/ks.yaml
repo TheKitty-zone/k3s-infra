@@ -11,4 +11,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k3s-infra
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: rimgo
+      namespace: flux-system
   wait: true

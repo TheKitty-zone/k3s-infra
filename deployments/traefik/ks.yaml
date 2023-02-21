@@ -11,4 +11,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: k3s-infra
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: traefik
+      namespace: kube-system
   wait: true
