@@ -7,7 +7,7 @@ spec:
   summary: "production cluster"
   providerRef:
     name: discord
-  eventSeverity: info
+  eventSeverity: error
   eventSources:
     - kind: GitRepository
       name: '*'
