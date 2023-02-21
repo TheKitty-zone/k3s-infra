@@ -1,0 +1,25 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Provider
+metadata:
+  name: discord
+  namespace: flux-system
+spec:
+  type: discord
+  secretRef:
+    name: discord-webhook
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: discord-webhook
+  namespace: flux-system
+spec:
+  encryptedData:
+    address: AgBZMN6Tlz6kEowRHAeB2IzvY9ggA/HKiBXxcprecUXjlmILdC2R/+W6d6FiKHqMospH0vTkMir2abaj1ROR1HUB+JWxiAdmU4by5E9ABiiQnJ30YW6zZ6KWOp9rjPkpIQkbYYohpRcTjNJ6eXlWiY0ZbMZpIU2swrUTs4Ron7dAEUNQcuhNnr/fm9v8Y2q+lLpwuDYdVeFrekZXTEnDIzbIH4R2+Y8UKM8+oYd3JL1U0a2bWyO/Th573c54l/r6FiizQjEdqIHBqZFsz9eqoj9BqXhAAYvh/TslgKdZU9Yf4MT0bnDkfTHr4cBObcYQ45bo1gNQ4FpT/6xEMFZmOVm3XNN2UlqKJ4ZtxUpUJ6AuJK0BnxnDO3l2KLXVC/Jlj8P68UpNE4/KFY1Zb0dcKyShRlE/Dj0JE3YBj3Wy2cnPnh87HueLj8Cw/NGE1a5w2uPxSLgTaunS0nrmLP/kJaw5N7E9pL9p+tECWy+xcrBDtzNElOV7E7ib4ndtLDX5T58obdWuWysBixSGiEeuraJoX3sLaDVPmpcSyfJWLuYBjOM7vjduY9MU9SJIkGHMyZaF6jp2veBtSGh5d9d+xOvKoRu6kQ1GSWua4eRlJvtXhR/PVjT/W0/CJgFjr7bQC3QPJL4ZNa6eQk5vZBVLg1b9aJnl3UlusVypkKHV8hu9ie/6CmWzsbWnvUvIW4L+AWvx0yF/ilmCSBjp5bg1bdl+OGK5Jt4aEYl+L/34BQSNR/c45uNRsDKTeFWNwAhZGDqcXPGOIVowMIBijudzHoG7JxYK9/ac5PCvZbYSQqS0OtwS+sCiJe2fmHqi4+Wv3ZwsHFMDF77ZFsNGYIJeWTSiEZ1S021eIKSm
+  template:
+    metadata:
+      creationTimestamp: null
+      name: discord-webhook
+      namespace: flux-system
