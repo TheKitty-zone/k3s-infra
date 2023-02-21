@@ -5,7 +5,6 @@ namespace: monitoring
 configMapGenerator:
 - name: grafana-dashboards
   files:
-    - mpw.json
     - traefik.json
     - flux-cluster.json
     - flux-control-plane.json

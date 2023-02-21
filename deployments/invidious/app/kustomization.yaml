@@ -6,3 +6,5 @@ resources:
   - ./namespace.yaml
   - ./sealed-secret-invidious.yaml
   - ./helmrelease.yaml
+  - ./invInFlightLimit.yaml
+  - ./invRateLimit.yaml
