@@ -2,19 +2,21 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   annotations:
-    meta.helm.sh/release-name: prometheus-stack
+    meta.helm.sh/release-name: prometheus
     meta.helm.sh/release-namespace: monitoring
-    prometheus-operator-validated: "true"
+  generation: 1
   labels:
     app: kube-prometheus-stack
-    app.kubernetes.io/instance: prometheus-stack
+    app.kubernetes.io/instance: prometheus
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: kube-prometheus-stack
-    app.kubernetes.io/version: 41.7.3
-    chart: kube-prometheus-stack-41.7.3
+    app.kubernetes.io/version: 45.2.0
+    chart: kube-prometheus-stack-45.2.0
+    helm.toolkit.fluxcd.io/name: prometheus
+    helm.toolkit.fluxcd.io/namespace: monitoring
     heritage: Helm
-    release: prometheus-stack
-  name: prometheus-stack-kube-prom-etcd
+    release: prometheus
+  name: prometheus-kube-prometheus-etcd
   namespace: monitoring
 spec:
   groups:
