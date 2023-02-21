@@ -36,45 +36,22 @@ spec:
         surge: 2
 
       replicas: 3
-    configMaps:
-      config:
-        # -- Enables or disables the configMap
-        enabled: true
-        # -- Labels to add to the configMap
-        labels: {}
-        # -- Annotations to add to the configMap
-        annotations: {}
-        # -- configMap data content. Helm template enabled.
-        data:
-          .env: |
-            APP_URL="https://tok.thekitty.zone" # Absolute path to proxitok instance
-            LATTE_CACHE="/tmp/" # Path for Latte cache, leave commented for /cache
-            API_SIGNER=remote
-            API_SIGNER_URL="http://signer:8080/signature"
-            API_TEST_ENDPOINTS=true # Uncomment for usage of testing TikTok endpoints, may help sometimes
-            API_CACHE=redis
-            REDIS_HOST=redis-master # Host or path to unix socket
-            REDIS_PORT=6379 # Set to -1 to use unix socket
+
     env:
       REDIS_PASSWORD:
         valueFrom:
             secretKeyRef:
               name: secret-redis
               key: redis_auth_key
+      APP_URL: "https://tok.thekitty.zone" # Absolute path to proxitok instance
+      LATTE_CACHE: "/tmp/" # Path for Latte cache, leave commented for /cache
+      API_SIGNER_URL: "http://signer:8080/signature"
+      API_SIGNER: remote
+      API_TEST_ENDPOINTS: true # Uncomment for usage of testing TikTok endpoints, may help sometimes
+      API_CACHE: redis
+      REDIS_HOST: redis-master # Host or path to unix socket
+      REDIS_PORT: 6379 # Set to -1 to use unix socket
 
-    persistence:
-      # -- Default persistence for configuration files.
-      # @default -- See below
-      config:
-        # -- Enables or disables the persistence item
-        enabled: enabled
-
-        # -- Sets the persistence type
-        # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
-        type: configMap
-        name: proxitok-config
-        mountPath: /var/www/html/.env
-        subPath: .env
 
     # -- Configures service settings for the chart.
     service:
