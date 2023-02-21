@@ -96,14 +96,14 @@ spec:
             *  which will proxy websocket traffic to your node server.
             *
             */
-                httpPort: 3000,
+                //httpPort: 3000,
 
             /*  httpSafePort allows you to specify an alternative port from which
             *  the node process should serve sandboxed assets. The default value is
             *  that of your httpPort + 1. You probably don't need to change this.
             *
             */
-                httpSafePort: 3001,
+                //httpSafePort: 3001,
 
             /*  CryptPad will launch a child process for every core available
             *  in order to perform CPU-intensive tasks in parallel.
@@ -308,7 +308,7 @@ spec:
         # -- Sets the persistence type
         # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
         type: configMap
-        name: cryptpad-config
+        name: crypt-pad-config
         mountPath: /config/config.js
         subPath: config.js
       datastore:

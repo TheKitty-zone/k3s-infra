@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: cryptpad-sandbox
+  name: cryptpad
   namespace: crypt-pad
   annotations:
     kubernetes.io/ingress.class: traefik
@@ -18,9 +18,9 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: cryptpad
+                name: crypt-pad
                 port:
-                  number: 3001
+                  number: 3000
     - host: cryptpad.thekitty.zone
       http:
         paths:
@@ -28,7 +28,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: cryptpad
+                name: crypt-pad
                 port:
                   number: 3000
   tls:
