@@ -33,7 +33,7 @@ $ helm install my-release 11tuvork28/invidious
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/11tuvork28/invidious"` |  |
 | image.tag | string | `"latest"` |  |
-| ingress | object | See below | Configure the ingress definition Note: middlewares are only supported when using traefik Nginx ingress controller options can be added under annotations |
+| ingress | object | See below | Configure the ingress definition Note: middlewares are only supported when using traefik |
 | name | string | `"invidious"` |  |
 | resources | object | See below | Configure resource limits here My custom image never exceeds 1024Mi, highest I have seen is 870Mi |
 | rollingUpdate.replicaCount | int | `1` |  |
