@@ -17,7 +17,7 @@ configMapGenerator:
     - postgresql_service_health.json
     - prometheus_alerts.json
     - query_statistics.json
-    - curd_details.json
+    - crud_details.json
 generatorOptions:
  disableNameSuffixHash: true
  labels:
