@@ -9,6 +9,15 @@ configMapGenerator:
     - flux-cluster.json
     - flux-control-plane.json
     - flux-logs.json
+    - pgbackrest.json
+    - pod_details.json
+    - pod_details2.json
+    - postgres_overview.json
+    - postgresql_details.json
+    - postgresql_service_health.json
+    - prometheus_alerts.json
+    - query_statistics.json
+    - curd_details.json
 generatorOptions:
  disableNameSuffixHash: true
  labels:
