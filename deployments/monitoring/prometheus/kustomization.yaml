@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./namespace.yaml
+  - ./sealed-secret-grafana.yaml
   - ./helmrelease.yaml
   - ./ingress
   - ./podMonitors
