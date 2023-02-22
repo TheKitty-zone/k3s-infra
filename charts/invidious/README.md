@@ -1,6 +1,6 @@
 # invidious
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Invidious is an alternative front-end to YouTube
 
@@ -33,7 +33,7 @@ $ helm install my-release 11tuvork28/invidious
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/11tuvork28/invidious"` |  |
 | image.tag | string | `"latest"` |  |
-| ingress | object | See below | Configure the ingress definition Note: middlewares are only supported when using traefik Nginx ingress controller options can be added under annotations |
+| ingress | object | See below | Configure the ingress definition Note: middlewares are only supported when using traefik |
 | name | string | `"invidious"` |  |
 | resources | object | See below | Configure resource limits here My custom image never exceeds 1024Mi, highest I have seen is 870Mi |
 | rollingUpdate.replicaCount | int | `1` |  |

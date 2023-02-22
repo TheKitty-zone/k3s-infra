@@ -62,7 +62,6 @@ secret:
 
 # -- Configure the ingress definition
 # Note: middlewares are only supported when using traefik
-# Nginx ingress controller options can be added under annotations
 # @default -- See below
 ingress:
   enabled: true
@@ -77,7 +76,6 @@ ingress:
   externalDns:
     enabled: true
     ttl: "3600"
-  annotations: {}
 
 # -- Configure invidious to your needs
 # Note that the hmac parametes is generated behind the scenes for you.

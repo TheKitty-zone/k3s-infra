@@ -15,9 +15,6 @@ metadata:
     {{- if eq .Values.ingress.ingressClass "traefik" }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.ingress.middlewares }}
     {{- end }}
-    {{- if .Values.ingress.annotations }}
-    {{ toYaml .Values.ingress.annotations | nindent 4 }}
-    {{- end }}
   labels:
     app: {{ template "invidious.name" . }}
     chart: {{ .Chart.Name }}
