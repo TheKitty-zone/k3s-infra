@@ -10,7 +10,7 @@ metadata:
     {{- end }}
     {{- if .Values.ingress.externalDns.enabled }}
     external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.domain }}
-    external-dns.alpha.kubernetes.io/ttl: {{ .Values.ingress.externalDns.ttl }}
+    external-dns.alpha.kubernetes.io/ttl: {{ .Values.ingress.externalDns.ttl | toString | quote }}
     {{- end }}
     {{- if eq .Values.ingress.ingressClass "traefik" }}
     traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.ingress.middlewares }}
