@@ -166,7 +166,7 @@ spec:
           publicDashboards: true
         smtp:
           enabled: true
-          host: mail.thekitty.zone:578
+          host: mail.thekitty.zone:587
           from_address: grafana@thekitty.zone
           from_name: Grafana
         emails:
