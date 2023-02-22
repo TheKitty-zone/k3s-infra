@@ -11,3 +11,5 @@ configMapGenerator:
     - flux-logs.json
 generatorOptions:
  disableNameSuffixHash: true
+ labels:
+    grafana_dashboard: "1"
