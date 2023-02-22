@@ -31,7 +31,7 @@ spec:
     strategy: "RollingUpdate"
     rollingUpdate:
       unavailable: 2
-      surge: 0
+      surge: 1
       replicaCount: 3
 
     # -- Configure the HPA
@@ -97,7 +97,6 @@ spec:
       externalDns:
         enabled: true
         ttl: "3600"
-      annotations: {}
 
     # -- Configure invidious to your needs
     # Note that the hmac parametes is generated behind the scenes for you.
