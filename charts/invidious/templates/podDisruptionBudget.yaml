@@ -3,7 +3,6 @@ kind: PodDisruptionBudget
 metadata:
   name: {{ template "invidious.name" . }}-pdb
 spec:
-    maxUnavailable: {{ .Values.rollingUpdate.unavailable }}
     minAvailable: {{ .Values.rollingUpdate.replicaCount }}
     selector:
         matchLabels:
