@@ -22,7 +22,7 @@ spec:
     name: invidious
     image:
       # Custom image, not recommended for personal use
-      repository: ghcr.io/11tuvork28/invidious
+      repository: ghcr.io/thekitty-zone/invidious
       tag: latest
       pullPolicy: Always
 
