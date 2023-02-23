@@ -3,6 +3,28 @@ entries:
   invidious:
   - apiVersion: v2
     appVersion: latest
+    created: "2023-02-23T15:190:30.239600643Z"
+    description: Invidious is an alternative front-end to YouTube
+    digest: d56d212f7bd6cd496df39c83500c9391aa0c9899af4236b34efb85f3f5e2706e
+    home: https://invidious.io/
+    icon: https://raw.githubusercontent.com/iv-org/invidious/05988c1c49851b7d0094fca16aeaf6382a7f64ab/assets/favicon-32x32.png
+    keywords:
+    - youtube
+    - proxy
+    - video
+    - privacy
+    maintainers:
+    - email: zofi@xamh.de
+      name: 11Tuvork28
+      url: https://github.com/11tuvork28/
+    name: invidious
+    sources:
+    - https://github.com/11tuvork28/invidious
+    urls:
+    - https://github.com/11Tuvork28/k3s-infra/releases/download/invidious-1.1.2/invidious-1.1.2.tgz
+    version: 1.1.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-02-22T17:30:40.239600643Z"
     description: Invidious is an alternative front-end to YouTube
     digest: 57f16472b91cf7d20d645f60c601fcaaf0061694fba0467d28af109047565c23
@@ -68,6 +90,27 @@ entries:
     - https://github.com/11Tuvork28/k3s-infra/releases/download/invidious-1.0.0/invidious-1.0.0.tgz
     version: 1.0.0
   libreddit:
+  - apiVersion: v2
+    appVersion: 0.27.1
+    created: "2023-02-24T15:23:10.578480168Z"
+    description: Libreddit is an alternative front-end to Reddit
+    digest: fb9ca674246280a6e3097afd107ef6014ebd842d814acd8fa8bd89171fb818a4
+    home: https://reddit.thekitty.zone
+    icon: https://raw.githubusercontent.com/libreddit/libreddit/master/static/favicon.ico
+    keywords:
+    - reddit
+    - proxy
+    - front-end
+    - privacy
+    maintainers:
+    - email: zofi@xamh.de
+      name: 11tuvork28
+    name: libreddit
+    sources:
+    - https://github.com/11tuvork28/k3s-infra/tree/main/deployments/libreddit
+    urls:
+    - https://github.com/11Tuvork28/k3s-infra/releases/download/libreddit-1.0.2/libreddit-1.0.2.tgz
+    version: 1.1.2
   - apiVersion: v2
     appVersion: 0.27.1
     created: "2023-02-14T16:53:49.578480168Z"
