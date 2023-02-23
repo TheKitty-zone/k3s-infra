@@ -3,7 +3,7 @@ entries:
   invidious:
   - apiVersion: v2
     appVersion: latest
-    created: "2023-02-23T15:190:30.239600643Z"
+    created: "2023-02-23T15:19:30.239600643Z"
     description: Invidious is an alternative front-end to YouTube
     digest: d56d212f7bd6cd496df39c83500c9391aa0c9899af4236b34efb85f3f5e2706e
     home: https://invidious.io/
