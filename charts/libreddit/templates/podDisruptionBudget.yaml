@@ -1,0 +1,9 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "libreddit.fullname" . }}-pdb
+spec:
+    minAvailable: {{ .Values.rollingUpdate.replicaCount }}
+    selector:
+        matchLabels:
+            app: {{ template "libreddit.fullname" . }}
