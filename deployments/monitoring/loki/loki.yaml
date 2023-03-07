@@ -24,7 +24,7 @@ spec:
       loki:
         persistence:
           enabled: true
-          storageClass: "hcloud-volumes"
+          storageClassName: "hcloud-volumes"
           # Customize this
           size: 12Gi
         config:
