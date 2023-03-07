@@ -14,7 +14,7 @@ spec:
         - "ReadWriteOnce"
         resources:
           requests:
-            storage: 100Gi
+            storage: 120Gi
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -46,12 +46,12 @@ spec:
           differential: "0 1 * * 1-6"
         volume:
           volumeClaimSpec:
-            storageClassName: "longhorn"
+            storageClassName: "hcloud-volumes"
             accessModes:
             - "ReadWriteOnce"
             resources:
               requests:
-                storage: 30Gi
+                storage: 130Gi
   monitoring:
     pgmonitor:
       exporter:

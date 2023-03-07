@@ -39,5 +39,4 @@ spec:
         namespace: "monitoring"
     master:
       persistence:
-        sizeLimit: 11Gi
-        size: 10Gi
+        enabled: false
