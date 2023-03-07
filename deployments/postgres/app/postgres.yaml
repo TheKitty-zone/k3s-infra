@@ -33,8 +33,6 @@ spec:
       global:
         repo1-retention-full: "14"
         repo1-retention-full-type: time
-        repo1-retention-diff: "7"
-        repo1-retention-diff-type: time
         archive-async: "y"
         spool-path: /pgdata/pg14/spool/pgbackrest
         start-fast: "y"
@@ -101,3 +99,4 @@ spec:
       track_activity_query_size: 2048
       autovacuum_freeze_max_age: 100000
       pg_stat_statements.track: all
+      max_connections: 500
