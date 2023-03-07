@@ -122,6 +122,7 @@ spec:
       config:
         enabled: true
         type: pvc
+        storageClass: "hcloud-volumes"
         accessMode: ReadWriteOnce
         size: 10Gi
         mountPath: /config
