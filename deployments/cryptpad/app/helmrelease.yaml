@@ -314,12 +314,14 @@ spec:
       datastore:
         enabled: true
         type: pvc
+        storageClass: "hcloud-volumes"
         mountPath: /datastore
         accessMode: ReadWriteOnce
         size: 5Gi
       data:
         enabled: true
         type: pvc
+        storageClass: "hcloud-volumes"
         mountPath: /data
         accessMode: ReadWriteOnce
         size: 5Gi
