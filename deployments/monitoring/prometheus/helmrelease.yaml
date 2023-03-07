@@ -157,7 +157,7 @@ spec:
         enabled: true
       persistence:
         enabled: true
-        size: 1Gi
+        size: 10Gi
         storageClass: hcloud-volumes
         accessModes:
           - ReadWriteOnce
