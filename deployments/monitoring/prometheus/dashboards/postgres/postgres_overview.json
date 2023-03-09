@@ -41,7 +41,7 @@
   "panels": [
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -177,7 +177,7 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "label_values(pg_cluster)",
         "description": null,
         "error": null,

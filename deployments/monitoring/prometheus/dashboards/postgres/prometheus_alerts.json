@@ -55,7 +55,7 @@
   "panels": [
     {
       "collapsed": false,
-      "datasource": "PROMETHEUS",
+
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -70,7 +70,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -140,7 +140,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -212,7 +212,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -284,7 +284,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "PROMETHEUS",
+
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -299,7 +299,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -396,7 +396,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -465,7 +465,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -535,7 +535,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "PROMETHEUS",
+
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -549,7 +549,7 @@
       "type": "row"
     },
     {
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -743,7 +743,7 @@
       "type": "table"
     },
     {
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "color": {

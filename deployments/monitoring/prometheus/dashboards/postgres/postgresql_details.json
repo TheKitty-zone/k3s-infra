@@ -65,7 +65,7 @@
   "panels": [
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -156,7 +156,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -238,7 +238,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -317,7 +317,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -397,7 +397,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -478,7 +478,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -559,7 +559,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "PROMETHEUS",
+     
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -644,7 +644,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -759,7 +759,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -878,7 +878,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -989,7 +989,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1114,7 +1114,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1258,7 +1258,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1360,7 +1360,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1512,7 +1512,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1634,7 +1634,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1773,7 +1773,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -1920,7 +1920,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -2032,7 +2032,7 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "",
         "description": null,
         "error": null,
@@ -2060,7 +2060,7 @@
         "allFormat": "glob",
         "allValue": ".*",
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "label_values({pg_cluster=\"[[cluster]]\"},pod)",
         "description": null,
         "error": null,
@@ -2088,7 +2088,7 @@
         "allFormat": "glob",
         "allValue": ".*",
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "label_values({pg_cluster=\"[[cluster]]\",pod=~\"[[pod]]\"},dbname)",
         "description": null,
         "error": null,

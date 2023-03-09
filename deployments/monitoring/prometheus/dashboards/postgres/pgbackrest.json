@@ -58,7 +58,7 @@
   ],
   "panels": [
     {
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -129,7 +129,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -257,7 +257,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -380,7 +380,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -507,7 +507,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -627,7 +627,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "PROMETHEUS",
+  
         "definition": "label_values(pg_cluster)",
         "description": null,
         "error": null,
