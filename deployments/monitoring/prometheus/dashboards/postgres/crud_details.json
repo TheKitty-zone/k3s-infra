@@ -53,7 +53,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+     
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -168,7 +168,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -191,7 +191,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "label_values({pg_cluster=\"[[cluster]]\"},pod)",
         "hide": 0,
         "includeAll": true,
@@ -214,7 +214,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "label_values(ccp_database_size_bytes{pg_cluster=\"[[cluster]]\"},dbname)",
         "hide": 0,
         "includeAll": true,
@@ -237,7 +237,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "",
         "hide": 0,
         "includeAll": true,
@@ -260,7 +260,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "PROMETHEUS",
+       
         "definition": "",
         "hide": 0,
         "includeAll": true,
