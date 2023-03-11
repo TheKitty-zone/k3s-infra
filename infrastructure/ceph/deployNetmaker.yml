@@ -1,0 +1,15 @@
+- hosts: servers
+  become: true
+  tasks:
+  - name: deploy nginx docker container
+    docker_container:
+      image: gravitl/netclient:v0.17.1
+      name: netclient
+      state: absent
+      auto_remove: false
+      restart_policy: always
+      network_mode: host
+      env:
+        TOKEN: "eyJhcGljb25uc3RyaW5nIjoiYXBpLnRoZWtpdHR5LnpvbmU6NDQzIiwibmV0d29yayI6ImNsdXN0ZXItYWxsIiwia2V5IjoiY2JkZmMxNDdjODRkMTU4NyIsImxvY2FscmFuZ2UiOiIifQ=="
+      volumes:
+        - '/etc/netclient:/etc/netclient:rw'
