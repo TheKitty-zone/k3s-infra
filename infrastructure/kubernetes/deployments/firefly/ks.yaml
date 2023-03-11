@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/firefly/app"
+  path: "./infrastructure/kubernetes/deployments/firefly/app"
   prune: true
   sourceRef:
     kind: GitRepository

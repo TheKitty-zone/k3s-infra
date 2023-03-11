@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/searx/app"
+  path: "./infrastructure/kubernetes/deployments/searx/app"
   prune: true
   sourceRef:
     kind: GitRepository

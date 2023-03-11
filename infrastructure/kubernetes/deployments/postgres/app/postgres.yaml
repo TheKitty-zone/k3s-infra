@@ -7,7 +7,7 @@ spec:
   postgresVersion: 14
   instances:
     - name: instance1
-      replicas: 4
+      replicas: 1
       dataVolumeClaimSpec:
         storageClassName: "hcloud-volumes"
         accessModes:
@@ -44,12 +44,12 @@ spec:
           differential: "0 1 * * 1-6"
         volume:
           volumeClaimSpec:
-            storageClassName: "hcloud-volumes"
-            accessModes:
-            - "ReadWriteOnce"
-            resources:
-              requests:
-                storage: 130Gi
+              storageClassName: hcloud-volumes
+              accessModes:
+              - "ReadWriteOnce"
+              resources:
+                requests:
+                  storage: 62Gi
   monitoring:
     pgmonitor:
       exporter:

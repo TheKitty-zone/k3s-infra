@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/monitoring/prometheus"
+  path: "./infrastructure/kubernetes/deployments/monitoring/prometheus"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/monitoring/loki"
+  path: "./infrastructure/kubernetes/deployments/monitoring/loki"
   prune: true
   sourceRef:
     kind: GitRepository

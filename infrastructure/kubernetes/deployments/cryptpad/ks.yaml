@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/cryptpad/app"
+  path: "./infrastructure/kubernetes/deployments/cryptpad/app"
   prune: true
   sourceRef:
     kind: GitRepository
