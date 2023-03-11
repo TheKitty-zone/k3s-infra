@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/proxitok/redis"
+  path: "./infrastructure/kubernetes/deployments/proxitok/redis"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,7 +25,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/proxitok/signer"
+  path: "./infrastructure/kubernetes/deployments/proxitok/signer"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -46,7 +46,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/proxitok/app"
+  path: "./infrastructure/kubernetes/deployments/proxitok/app"
   prune: true
   sourceRef:
     kind: GitRepository

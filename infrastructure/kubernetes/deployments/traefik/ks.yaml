@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/traefik/app"
+  path: "./infrastructure/kubernetes/deployments/traefik/app"
   prune: true
   sourceRef:
     kind: GitRepository

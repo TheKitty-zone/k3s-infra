@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/librarian/app"
+  path: "./infrastructure/kubernetes/deployments/librarian/app"
   prune: true
   sourceRef:
     kind: GitRepository

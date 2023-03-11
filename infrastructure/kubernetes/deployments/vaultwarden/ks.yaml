@@ -7,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./deployments/vaultwarden/app"
+  path: "./infrastructure/kubernetes/deployments/vaultwarden/app"
   prune: true
   sourceRef:
     kind: GitRepository
