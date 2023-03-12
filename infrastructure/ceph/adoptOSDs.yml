@@ -1,7 +1,0 @@
-- hosts: servers
-  become: true
-  tasks:
-  - name: Adopt OSDs by cephadm
-    command: cephadm adopt --style legacy --name {{hostvars[item]['osd_name']}}
-    with_items: "{{hostvars}}"
-    when: hostvars[item]['osd_name'] is defined
