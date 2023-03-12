@@ -89,7 +89,7 @@ The Git repository contains the following top directories:
 │   └── controllers
 └── clusters
     └── production
-
+```
 ## Bootstrap staging and production
 
 The clusters dir contains the Flux configuration:
@@ -175,11 +175,9 @@ kubectl -n flux-system port-forward svc/weave-gitops 9001:9001
 Navigate to http://localhost:9001 and login using the username `admin` and the password `flux`.
 
 [Weave GitOps](https://docs.gitops.weave.works/) provides insights into your application deployments,
-and makes continuous delivery with Flux easier to adopt and scale across your teams.
+and makes continuous delivery with Flux easier to adopt.
 The GUI provides a guided experience to build understanding and simplify getting started for new users;
 they can easily discover the relationship between Flux objects and navigate to deeper levels of information as required.
-
-![flux-ui-depends-on](.github/screens/flux-ui-depends-on.png)
 
 You can change the admin password bcrypt hash in **infrastructure/controllers/weave-gitops.yaml**:
 
