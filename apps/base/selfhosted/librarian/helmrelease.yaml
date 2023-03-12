@@ -1,0 +1,192 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: lbry
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: '>=1.0.0'
+  interval: 1h0m0s
+  releaseName: lbry
+  targetNamespace: lbry
+  values:
+    image:
+      # -- image repository
+      repository: codeberg.org/librarian/librarian
+      # -- image pull policy
+      pullPolicy: Always
+      # -- image tag
+      # this example is not automatically updated, so be sure to use the latest image
+      tag: latest
+
+    controller:
+      strategy: "RollingUpdate"
+      rollingUpdate:
+        # -- Set deployment RollingUpdate max unavailable
+        unavailable: 1
+        # -- Set deployment RollingUpdate max surge
+        surge: 1
+
+      replicas: 3
+
+    configMaps:
+      config:
+        # -- Enables or disables the configMap
+        enabled: true
+        # -- Labels to add to the configMap
+        labels: {}
+        # -- Annotations to add to the configMap
+        annotations: {}
+        # -- configMap data content. Helm template enabled.
+        data:
+          config.yml: |
+            DOMAIN: 'https://lbry.thekitty.zone'
+            PORT: '3000'
+            FIBER_PREFORK: false
+            # Optional: Set address to bind to, example: 127.0.0.1
+            ADDRESS: ''
+            # Running a custom API server is not recommended and is not suitable for a public instance
+            API_URL: 'https://api.na-backend.odysee.com/api/v1/proxy'
+            # Block access to claims in case of DMCA
+            BLOCKED_CLAIMS:
+            # AUTH_TOKEN and HMAC_KEY is automatically generated
+            AUTH_TOKEN: ''
+            HMAC_KEY: '486f4b14f4b6b5a35a68076157e709b0ef17e646'
+            # Create IMAGE_CACHE_DIR before enabling image caching
+            IMAGE_CACHE: true
+            IMAGE_CACHE_DIR: '/app'
+            IMAGE_CACHE_CLEANUP_INTERVAL: 24h
+            # The next 2 options will proxy video data through the instance.
+            # This will cause increased bandwidth usage.
+            # ENABLE_STREAM_PROXY proxies videos and ENABLE_LIVESTREAM enables livestreams.
+            ENABLE_STREAM_PROXY: true
+            ENABLE_LIVESTREAM: true
+            # Advanced: Custom video streaming endpoint
+            VIDEO_STREAMING_URL: ''
+            # Rewrite links to other frontends. example: https://yt.domain.tld
+            FRONTEND:
+              youtube: https://watch.thekitty.zone
+              twitter: ''
+              imgur: https://rimgo.thekitty.zone
+              instagram: ''
+              tiktok: 'https://tok.thekitty.zone'
+              reddit: https://reddit.thekitty.zone
+            # Instance privacy: This is required to get your instance listed. For more info,
+            # See: https://codeberg.org/librarian/librarian/wiki/Instance-privacy
+            INSTANCE_PRIVACY:
+            # This is the default if you are using NGINX and have not disabled data collection.
+            # Read https://codeberg.org/librarian/librarian/wiki/Instance-privacy
+              DATA_NOT_COLLECTED: false
+              DATA_COLLECTED_IP: false
+              DATA_COLLECTED_URL: false
+              DATA_COLLECTED_DEVICE: false
+              DATA_COLLECTED_DIAGNOSTIC_ONLY: true
+              # The country your instance is located. Leave blank if hosting on darknet.
+              INSTANCE_COUNTRY: "Germany"
+              # Put the name of your hosting provider. If hosting from home, use the name of your ISP. Leave blank if hosting on darknet.
+              INSTANCE_PROVIDER: "Hetzner"
+              # Cloudflare use is discouraged. You can set this to false if it is not proxied (gray cloud icon)
+              INSTANCE_CLOUDFLARE: false
+              # Optional: Explain your usage of data (if collected) and how it is stored.
+              MESSAGE: ""
+              # Link to your privacy policy, leave blank if you don't have one.
+              PRIVACY_POLICY: https://thekitty.zone/about/
+    persistence:
+      # -- Default persistence for configuration files.
+      # @default -- See below
+      config:
+        # -- Enables or disables the persistence item
+        enabled: enabled
+
+        # -- Sets the persistence type
+        # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
+        type: configMap
+        name: lbry-config
+        mountPath: /app/config.yml
+        subPath: config.yml
+    # -- Configures service settings for the chart.
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
+    ingress:
+      # -- Enable and configure ingress settings for the chart under this key.
+      main:
+        enabled: false
+
+    probes:
+      # -- Liveness probe configuration
+      # @default -- See below
+      liveness:
+        # -- Enable the liveness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own livenessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default livenessProbe.
+        # If you selected `custom: true`, this field holds the definition of the livenessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 3000
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Redainess probe configuration
+      # @default -- See below
+      readiness:
+        # -- Enable the readiness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own readinessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default readinessProbe.
+        # If you selected `custom: true`, this field holds the definition of the readinessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 3000
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Startup probe configuration
+      # @default -- See below
+      startup:
+        # -- Enable the startup probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own startupProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default startupProbe.
+        # If you selected `custom: true`, this field holds the definition of the startupProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 3000
+            path: /
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+          periodSeconds: 5
+          failureThreshold: 30

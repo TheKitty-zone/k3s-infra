@@ -1,0 +1,99 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: searxng
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: '>=1.0.0'
+  interval: 1h0m0s
+  releaseName: searxng
+  targetNamespace: searxng
+  values:
+    image:
+      # -- image repository
+      repository: searxng/searxng
+      # -- image tag
+      tag: latest
+      # -- image pull policy
+      pullPolicy: Always
+
+    env:
+      INSTANCE_NAME: "The kitty zone search"
+      BASE_URL: "https://search.thekitty.zone/"
+      AUTOCOMPLETE: "true"
+      BIND_ADDRESS: "0.0.0.0:8080"
+
+    controller:
+      strategy: "RollingUpdate"
+      rollingUpdate:
+        # -- Set deployment RollingUpdate max unavailable
+        unavailable: 1
+        # -- Set deployment RollingUpdate max surge
+        surge: 2
+
+      replicas: 3
+
+    # -- Configures service settings for the chart.
+    # @default -- See values.yaml
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+
+    # -- Configure persistence settings for the chart under this key.
+    # @default -- See values.yaml
+    persistence:
+      # -- Default persistence for configuration files.
+      # @default -- See below
+      config:
+        # -- Enables or disables the persistence item
+        enabled: enabled
+
+        # -- Sets the persistence type
+        # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
+        type: secret
+        name: searxng-secret
+        mountPath: /etc/searxng/settings.yml
+        subPath: settings.yml
+
+    ingress:
+      # -- Enable and configure ingress settings for the chart under this key.
+      # @default -- See values.yaml
+      main:
+        enabled: false
+
+    probes:
+      readiness:
+        custom: true
+        spec:
+          httpGet:
+            path: /healthz
+            port: 8080
+      liveness:
+        custom: true
+        spec:
+          httpGet:
+            path: /healthz
+            port: 8080
+      startup:
+        custom: true
+        spec:
+          httpGet:
+            path: /healthz
+            port: 8080
+
+    # Enable when using searxng builtin rate limiter
+    # Values: https://github.com/pascaliske/helm-charts/tree/master/charts/redis
+    redis:
+      enabled: false
+      

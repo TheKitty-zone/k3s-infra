@@ -1,0 +1,394 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: crypt-pad
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: '>=1.0.0'
+  interval: 1h0m0s
+  releaseName: crypt-pad
+  targetNamespace: crypt-pad
+  values:
+    image:
+      repository: ghcr.io/nicholaswilde/cryptpad
+      pullPolicy: Always
+      tag: "latest"
+    controller:
+      strategy:
+      rollingUpdate:
+        # -- Set deployment RollingUpdate max unavailable
+        unavailable: 1
+        # -- Set deployment RollingUpdate max surge
+        surge: 2
+
+      replicas: 1
+
+    env:
+      CPAD_HTTP2_DISABLE: true
+
+    service:
+      main:
+        ports:
+          http:
+            port: 3000
+          sandbox:
+            enabled: true
+            port: 3001
+
+    ingress:
+      main:
+        enabled: false
+    configMaps:
+      config:
+        # -- Enables or disables the configMap
+        enabled: true
+        # -- Labels to add to the configMap
+        labels: {}
+        # -- Annotations to add to the configMap
+        annotations: {}
+        # -- configMap data content. Helm template enabled.
+        data:
+          config.js: |
+            module.exports = {
+                httpUnsafeOrigin: 'https://cryptpad.thekitty.zone',
+
+            /*  httpSafeOrigin is the URL that is used for the 'sandbox' described above.
+            *  If you're testing or developing with CryptPad on your local machine then
+            *  it is appropriate to leave this blank. The default behaviour is to serve
+            *  the main domain over port 3000 and to serve the sandbox content over port 3001.
+            *
+            *  This is not appropriate in a production environment where invasive networks
+            *  may filter traffic going over abnormal ports.
+            *  To correctly configure your production instance you must provide a URL
+            *  with a different domain (a subdomain is sufficient).
+            *  It will be used to load the UI in our 'sandbox' system.
+            *
+            *  This value corresponds to the $sandbox_domain variable
+            *  in the example nginx file.
+            *
+            *  Note that in order for the sandboxing system to be effective
+            *  httpSafeOrigin must be different from httpUnsafeOrigin.
+            *
+            *  CUSTOMIZE AND UNCOMMENT THIS FOR PRODUCTION INSTALLATIONS.
+            */
+            httpSafeOrigin: "https://sc.thekitty.zone",
+
+            /*  httpAddress specifies the address on which the nodejs server
+            *  should be accessible. By default it will listen on 127.0.0.1
+            *  (IPv4 localhost on most systems). If you want it to listen on
+            *  all addresses, including IPv6, set this to '::'.
+            *
+            */
+              httpAddress: '::',
+
+            /*  httpPort specifies on which port the nodejs server should listen.
+            *  By default it will serve content over port 3000, which is suitable
+            *  for both local development and for use with the provided nginx example,
+            *  which will proxy websocket traffic to your node server.
+            *
+            */
+                //httpPort: 3000,
+
+            /*  httpSafePort allows you to specify an alternative port from which
+            *  the node process should serve sandboxed assets. The default value is
+            *  that of your httpPort + 1. You probably don't need to change this.
+            *
+            */
+                //httpSafePort: 3001,
+
+            /*  CryptPad will launch a child process for every core available
+            *  in order to perform CPU-intensive tasks in parallel.
+            *  Some host environments may have a very large number of cores available
+            *  or you may want to limit how much computing power CryptPad can take.
+            *  If so, set 'maxWorkers' to a positive integer.
+            */
+                // maxWorkers: 4,
+
+                /* =====================
+                *         Admin
+                * ===================== */
+
+                /*
+                *  CryptPad contains an administration panel. Its access is restricted to specific
+                *  users using the following list.
+                *  To give access to the admin panel to a user account, just add their public signing
+                *  key, which can be found on the settings page for registered users.
+                *  Entries should be strings separated by a comma.
+                *  adminKeys: [
+                *      "[cryptpad-user1@my.awesome.website/YZgXQxKR0Rcb6r6CmxHPdAGLVludrAF2lEnkbx1vVOo=]",
+                *      "[cryptpad-user2@my.awesome.website/jA-9c5iNuG7SyxzGCjwJXVnk5NPfAOO8fQuQ0dC83RE=]",
+                *  ]
+                *
+                */
+                adminKeys: [
+                  "[11zofia28@cryptpad.thekitty.zone/U9jCGILYli9nqa+AhETQemNKeuOtkIhFCJ0qHFKpGIA=]"
+                ],
+
+                /* =====================
+                *        STORAGE
+                * ===================== */
+
+                /*  Pads that are not 'pinned' by any registered user can be set to expire
+                *  after a configurable number of days of inactivity (default 90 days).
+                *  The value can be changed or set to false to remove expiration.
+                *  Expired pads can then be removed using a cron job calling the
+                *  `evict-inactive.js` script with node
+                *
+                *  defaults to 90 days if nothing is provided
+                */
+                inactiveTime: 30, // days
+
+                /*  CryptPad archives some data instead of deleting it outright.
+                *  This archived data still takes up space and so you'll probably still want to
+                *  remove these files after a brief period.
+                *
+                *  cryptpad/scripts/evict-inactive.js is intended to be run daily
+                *  from a crontab or similar scheduling service.
+                *
+                *  The intent with this feature is to provide a safety net in case of accidental
+                *  deletion. Set this value to the number of days you'd like to retain
+                *  archived data before it's removed permanently.
+                *
+                *  defaults to 15 days if nothing is provided
+                */
+                //archiveRetentionTime: 15,
+
+                /*  It's possible to configure your instance to remove data
+                *  stored on behalf of inactive accounts. Set 'accountRetentionTime'
+                *  to the number of days an account can remain idle before its
+                *  documents and other account data is removed.
+                *
+                *  Leave this value commented out to preserve all data stored
+                *  by user accounts regardless of inactivity.
+                */
+                //accountRetentionTime: 365,
+
+                /*  Starting with CryptPad 3.23.0, the server automatically runs
+                *  the script responsible for removing inactive data according to
+                *  your configured definition of inactivity. Set this value to `true`
+                *  if you prefer not to remove inactive data, or if you prefer to
+                *  do so manually using `scripts/evict-inactive.js`.
+                */
+                //disableIntegratedEviction: true,
+
+
+                /*  Max Upload Size (bytes)
+                *  this sets the maximum size of any one file uploaded to the server.
+                *  anything larger than this size will be rejected
+                *  defaults to 20MB if no value is provided
+                */
+                //maxUploadSize: 20 * 1024 * 1024,
+
+                /*  Users with premium accounts (those with a plan included in their customLimit)
+                *  can benefit from an increased upload size limit. By default they are restricted to the same
+                *  upload size as any other registered user.
+                *
+                */
+                //premiumUploadSize: 100 * 1024 * 1024,
+
+                /* =====================
+                *   DATABASE VOLUMES
+                * ===================== */
+
+                /*
+                *  CryptPad stores each document in an individual file on your hard drive.
+                *  Specify a directory where files should be stored.
+                *  It will be created automatically if it does not already exist.
+                */
+                filePath: './datastore/',
+
+                /*  CryptPad offers the ability to archive data for a configurable period
+                *  before deleting it, allowing a means of recovering data in the event
+                *  that it was deleted accidentally.
+                *
+                *  To set the location of this archive directory to a custom value, change
+                *  the path below:
+                */
+                archivePath: './data/archive',
+
+                /*  CryptPad allows logged in users to request that particular documents be
+                *  stored by the server indefinitely. This is called 'pinning'.
+                *  Pin requests are stored in a pin-store. The location of this store is
+                *  defined here.
+                */
+                pinPath: './data/pins',
+
+                /*  if you would like the list of scheduled tasks to be stored in
+                    a custom location, change the path below:
+                */
+                taskPath: './data/tasks',
+
+                /*  if you would like users' authenticated blocks to be stored in
+                    a custom location, change the path below:
+                */
+                blockPath: './data/block',
+
+                /*  CryptPad allows logged in users to upload encrypted files. Files/blobs
+                *  are stored in a 'blob-store'. Set its location here.
+                */
+                blobPath: './data/blob',
+
+                /*  CryptPad stores incomplete blobs in a 'staging' area until they are
+                *  fully uploaded. Set its location here.
+                */
+                blobStagingPath: './data/blobstage',
+
+                decreePath: './data/decrees',
+
+                /* CryptPad supports logging events directly to the disk in a 'logs' directory
+                * Set its location here, or set it to false (or nothing) if you'd rather not log
+                */
+                logPath: './data/logs',
+
+                /* =====================
+                *       Debugging
+                * ===================== */
+
+                /*  CryptPad can log activity to stdout
+                *  This may be useful for debugging
+                */
+                logToStdout: true,
+
+                /* CryptPad can be configured to log more or less
+                * the various settings are listed below by order of importance
+                *
+                * silly, verbose, debug, feedback, info, warn, error
+                *
+                * Choose the least important level of logging you wish to see.
+                * For example, a 'silly' logLevel will display everything,
+                * while 'info' will display 'info', 'warn', and 'error' logs
+                *
+                * This will affect both logging to the console and the disk.
+                */
+                logLevel: 'verbose',
+
+                /*  clients can use the /settings/ app to opt out of usage feedback
+                *  which informs the server of things like how much each app is being
+                *  used, and whether certain clientside features are supported by
+                *  the client's browser. The intent is to provide feedback to the admin
+                *  such that the service can be improved. Enable this with `true`
+                *  and ignore feedback with `false` or by commenting the attribute
+                *
+                *  You will need to set your logLevel to include 'feedback'. Set this
+                *  to false if you'd like to exclude feedback from your logs.
+                */
+                logFeedback: false,
+
+                /*  CryptPad supports verbose logging
+                *  (false by default)
+                */
+                verbose: false,
+
+                /*  Surplus information:
+                *
+                *  'installMethod' is included in server telemetry to voluntarily
+                *  indicate how many instances are using unofficial installation methods
+                *  such as Docker.
+                *
+                */
+                installMethod: 'kubernetes-custom-helm',
+            };
+
+    persistence:
+      # -- Default persistence for configuration files.
+      # @default -- See below
+      config:
+        # -- Enables or disables the persistence item
+        enabled: enabled
+
+        # -- Sets the persistence type
+        # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
+        type: configMap
+        name: crypt-pad-config
+        mountPath: /config/config.js
+        subPath: config.js
+      datastore:
+        enabled: true
+        type: pvc
+        storageClass: "hcloud-volumes"
+        mountPath: /datastore
+        accessMode: ReadWriteOnce
+        size: 5Gi
+      data:
+        enabled: true
+        type: pvc
+        storageClass: "hcloud-volumes"
+        mountPath: /data
+        accessMode: ReadWriteOnce
+        size: 5Gi
+    probes:
+      # -- Liveness probe configuration
+      # @default -- See below
+      liveness:
+        # -- Enable the liveness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own livenessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default livenessProbe.
+        # If you selected `custom: true`, this field holds the definition of the livenessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 3000
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Redainess probe configuration
+      # @default -- See below
+      readiness:
+        # -- Enable the readiness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own readinessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default readinessProbe.
+        # If you selected `custom: true`, this field holds the definition of the readinessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 3000
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Startup probe configuration
+      # @default -- See below
+      startup:
+        # -- Enable the startup probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own startupProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default startupProbe.
+        # If you selected `custom: true`, this field holds the definition of the startupProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 3000
+            path: /
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+          periodSeconds: 5
+          failureThreshold: 30
