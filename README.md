@@ -92,6 +92,7 @@ The Git repository contains the following top directories:
 ```
 ## Bootstrap production
 
+
 The clusters dir contains the Flux configuration:
 
 ```
