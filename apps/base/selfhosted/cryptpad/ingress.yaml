@@ -1,0 +1,40 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cryptpad
+  namespace: selfhosted
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd,crypt-pad-crypt-pad-headers@kubernetescrd
+    external-dns.alpha.kubernetes.io/hostname: sc.thekitty.zone,cryptpad.thekitty.zone
+spec:
+  rules:
+    - host: sc.thekitty.zone
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: crypt-pad
+                port:
+                  number: 3000
+    - host: cryptpad.thekitty.zone
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: crypt-pad
+                port:
+                  number: 3000
+  tls:
+    - secretName: sc-cryptpad-thekitty-zone-tls
+      hosts:
+         - sc.thekitty.zone
+    - secretName: cryptpad-thekitty-zone-tls
+      hosts:
+        - cryptpad.thekitty.zone

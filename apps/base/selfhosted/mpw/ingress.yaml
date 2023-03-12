@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mpw-ingress
+  namespace: selfhosted
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/hostname: mpw.thekitty.zone    
+spec:
+  rules:
+    - host: mpw.thekitty.zone
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mpw
+                port:
+                  number: 80
+  tls:
+    - secretName: mpw-thekitty-zone-tls
+      hosts:
+        - mpw.thekitty.zone
+

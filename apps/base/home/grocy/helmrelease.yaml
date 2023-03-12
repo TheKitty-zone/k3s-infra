@@ -1,0 +1,299 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grocy
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: '>=1.0.0'
+  interval: 1h0m0s
+  releaseName: grocy
+  targetNamespace: grocy
+  values:
+    image:
+      # -- image repository
+      repository: lscr.io/linuxserver/grocy
+      # -- image pull policy
+      pullPolicy: Always
+      # -- image tag
+      # this example is not automatically updated, so be sure to use the latest image
+      tag: latest
+
+    controller:
+      strategy: "Recreate"
+      replicas: 1
+
+    env:
+      GROCY_MODE: production
+      GROCY_CULTURE: de
+      MAX_UPLOAD: 50M
+      PHP_MAX_FILE_UPLOAD: "200"
+      PHP_MAX_POST: 100M
+      PHP_MEMORY_LIMIT: 512M
+      GROCY_CURRENCY: EUR
+
+    # -- Configures service settings for the chart.
+    service:
+      main:
+        enabled: true
+        ports:
+          http:
+            port: 80
+    ingress:
+      # -- Enable and configure ingress settings for the chart under this key.
+      main:
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+          external-dns.alpha.kubernetes.io/hostname: "grocy.thekitty.zone"
+          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+        ingressClassName: ""
+        enabled: true
+        hosts:
+          - host: grocy.thekitty.zone
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: 80
+        tls:
+          - secretName: grocy-thekitty.zone-tls
+            hosts:
+              - grocy.thekitty.zone
+
+
+    probes:
+      # -- Liveness probe configuration
+      # @default -- See below
+      liveness:
+        # -- Enable the liveness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own livenessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default livenessProbe.
+        # If you selected `custom: true`, this field holds the definition of the livenessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 80
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Redainess probe configuration
+      # @default -- See below
+      readiness:
+        # -- Enable the readiness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own readinessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default readinessProbe.
+        # If you selected `custom: true`, this field holds the definition of the readinessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 80
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Startup probe configuration
+      # @default -- See below
+      startup:
+        # -- Enable the startup probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own startupProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default startupProbe.
+        # If you selected `custom: true`, this field holds the definition of the startupProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 80
+            path: /
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+          periodSeconds: 5
+          failureThreshold: 30
+    
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        storageClass: "hcloud-volumes"
+        size: 10Gi
+        mountPath: /config
+
+      viewcache:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/data/viewcache
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: barcode-buddy
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: '>=1.0.0'
+  interval: 1h0m0s
+  releaseName: barcode-buddy
+  targetNamespace: grocy
+  values:
+    image:
+      # -- image repository
+      repository: f0rc3/barcodebuddy-docker
+      # -- image pull policy
+      pullPolicy: Always
+      # -- image tag
+      # this example is not automatically updated, so be sure to use the latest image
+      tag: latest
+
+    controller:
+      strategy: "Recreate"
+      replicas: 1
+
+    # -- Configures service settings for the chart.
+    service:
+      main:
+        enabled: true
+        ports:
+          http:
+            port: 80
+    ingress:
+      # -- Enable and configure ingress settings for the chart under this key.
+      main:
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+          external-dns.alpha.kubernetes.io/hostname: "bcbuddy.thekitty.zone"
+          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+        ingressClassName: ""
+        enabled: true
+        hosts:
+          - host: bcbuddy.thekitty.zone
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: 80
+        tls:
+          - secretName: bcbuddy-thekitty.zone-tls
+            hosts:
+              - bcbuddy.thekitty.zone
+
+
+    probes:
+      # -- Liveness probe configuration
+      # @default -- See below
+      liveness:
+        # -- Enable the liveness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own livenessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default livenessProbe.
+        # If you selected `custom: true`, this field holds the definition of the livenessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 80
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Redainess probe configuration
+      # @default -- See below
+      readiness:
+        # -- Enable the readiness probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own readinessProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default readinessProbe.
+        # If you selected `custom: true`, this field holds the definition of the readinessProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 80
+            path: /
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+
+      # -- Startup probe configuration
+      # @default -- See below
+      startup:
+        # -- Enable the startup probe
+        enabled: true
+        # -- Set this to `true` if you wish to specify your own startupProbe
+        custom: true
+        # -- sets the probe type when not using a custom probe
+        # @default -- "TCP"
+        type: TCP
+        # -- The spec field contains the values for the default startupProbe.
+        # If you selected `custom: true`, this field holds the definition of the startupProbe.
+        # @default -- See below
+        spec:
+          httpGet:
+            port: 80
+            path: /
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          ## This means it has a maximum of 5*30=150 seconds to start up before it fails
+          periodSeconds: 5
+          failureThreshold: 30
+    
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        storageClass: "hcloud-volumes"
+        size: 10Gi
+        mountPath: /config
+
+      viewcache:
+        enabled: true
+        type: emptyDir
+        mountPath: /config/data/viewcache

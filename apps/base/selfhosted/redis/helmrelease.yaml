@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: redis
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      version: '>1.0.0'
+  interval: 1h0m0s
+  releaseName: redis
+  targetNamespace: proxitok
+  values:
+    auth:
+      ## @param auth.enabled Enable password authentication
+      ##
+      enabled: false
+    metrics:
+      ## @param metrics.enabled Start a sidecar prometheus exporter to expose Redis&reg; metrics
+      ##
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        namespace: "monitoring"
+    master:
+      persistence:
+        enabled: false
+    replica:
+      persistence:
+        enabled: false

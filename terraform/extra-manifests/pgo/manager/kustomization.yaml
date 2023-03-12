@@ -1,0 +1,17 @@
+resources:
+- manager.yaml
+- manager-upgrade.yaml
+patchesStrategicMerge:
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: pgo
+  spec:
+    template:
+      spec:
+        containers:
+        - name: operator
+          env:
+          - name: CRUNCHY_DEBUG
+            value: "false"
