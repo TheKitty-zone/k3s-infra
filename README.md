@@ -172,7 +172,7 @@ To access the Flux UI on a cluster, first start port forwarding with:
 kubectl -n flux-system port-forward svc/weave-gitops 9001:9001
 ```
 
-Navigate to http://localhost:9001 and login using the username `admin` and the password `flux`.
+Navigate to http://localhost:9001 and login using the username `admin` and the password set in **infrastructure/controllers/weave-gitops.yaml**.
 
 [Weave GitOps](https://docs.gitops.weave.works/) provides insights into your application deployments,
 and makes continuous delivery with Flux easier to adopt.
