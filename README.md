@@ -32,7 +32,7 @@ Below you will find instruction on how to set this repo up yourself.
 ## Prerequisites
 
 You will need a Ceph cluster and you need to configure at least every ingress to your domain, you might also change any other configuration.
-For that you will need an Hetzner account and the api token that you can generate from a given project.
+To create the K3S cluste you will need an Hetzner account and the api token that you can generate from a given project.
 
 Install Terraform on MacOS or Linux using Homebrew:
 
@@ -90,7 +90,7 @@ The Git repository contains the following top directories:
 └── clusters
     └── production
 ```
-## Bootstrap staging and production
+## Bootstrap production
 
 The clusters dir contains the Flux configuration:
 
