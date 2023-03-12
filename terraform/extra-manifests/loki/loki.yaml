@@ -1,25 +1,12 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
 metadata:
   name: loki
-  namespace: monitoring
+  namespace: kube-system
 spec:
-  chart:
-    spec:
-      reconcileStrategy: Revision
-      chart: loki-stack
-      # -- Version of the app-template helm chart
-      # this example is not automatically updated, so be sure to use the latest chart version
-      version: '>=1.0.0'
-      interval: 15m
-      sourceRef:
-        kind: HelmRepository
-        name: grafana
-        namespace: flux-system
-  interval: 1h0m0s
-  releaseName: loki
-  targetNamespace: monitoring
+  chart: loki-stack
+  repo: https://grafana.github.io/helm-charts
+  targetNamespace: montitoring
   values:
       loki:
         persistence:

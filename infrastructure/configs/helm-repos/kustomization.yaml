@@ -4,7 +4,6 @@ resources:
   - bitnami.yaml
   - bjw-s.yaml
   - firefly.yaml
-  - grafana.yaml
   - home-repo.yaml
   - sealed-secrets.yaml
   
