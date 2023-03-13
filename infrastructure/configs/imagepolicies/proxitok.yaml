@@ -9,5 +9,5 @@ spec:
   filterTags:
     pattern: '^sha256-[a-fA-F0-9]+.sig'
   policy:
-    numerical:
+    alphabetical:
       order: asc

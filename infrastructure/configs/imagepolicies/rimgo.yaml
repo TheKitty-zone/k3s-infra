@@ -9,5 +9,5 @@ spec:
   filterTags:
     pattern: '^[a-z]+'
   policy:
-    numerical:
+    alphabetical:
       order: asc
