@@ -1,6 +1,6 @@
 # invidious
 
-![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 1.2.3](https://img.shields.io/badge/Version-1.2.3-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 Invidious is an alternative front-end to YouTube
 
@@ -29,7 +29,6 @@ $ helm install my-release 11tuvork28/invidious
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | autoscaling | object | See below | Configure the HPA minReplicas should match replicaCount |
-| config | object | See below | Configure invidious to your needs Note that the hmac parametes is generated behind the scenes for you. [[ref]](https://github.com/11tuvork28/invidious/blob/master/config/config.example.yml) |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/11tuvork28/invidious"` |  |
 | image.tag | string | `"latest"` |  |

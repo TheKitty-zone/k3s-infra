@@ -76,12 +76,3 @@ ingress:
   externalDns:
     enabled: true
     ttl: "3600"
-
-# -- Configure invidious to your needs
-# Note that the hmac parametes is generated behind the scenes for you.
-# [[ref]](https://github.com/11tuvork28/invidious/blob/master/config/config.example.yml)
-# @default -- See below
-config:
-  https_only: true
-  domain: ""
-  statistics_enabled: true
