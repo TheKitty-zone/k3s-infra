@@ -3,3 +3,6 @@ kind: Kustomization
 resources:
   - cluster-issuers.yaml
   - ./helm-repos
+  - ./imagepolicies
+  - ./imagerepositories
+  - ./imageUpdateAutomation.yaml
