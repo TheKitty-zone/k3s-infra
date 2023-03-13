@@ -62,7 +62,7 @@ spec:
         # -- Sets the persistence type
         # Valid options are pvc, emptyDir, hostPath, secret, configMap or custom
         type: secret
-        name: searxng-secret
+        name: searxng-config
         mountPath: /etc/searxng/settings.yml
         subPath: settings.yml
 
