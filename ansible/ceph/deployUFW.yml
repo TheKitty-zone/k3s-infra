@@ -1,54 +1,38 @@
 - hosts: servers
   become: true
   tasks:
-  - name: UFW Allow netmaker cluster communication
-    ufw: from_ip={{hostvars[item]['ansible_default_ipv4']['address']}} rule=allow port=51821 proto=udp
-    with_items: "{{hostvars}}"
-    when: hostvars[item]['ansible_default_ipv4']['address'] is defined
-  
-  - name: UFW Allow netmaker access from NETCUP
-    ufw: from_ip={{netcup_server}} rule=allow port=51821 proto=udp
-
   - name: UFW Allow ceph cluster communication
-    ufw: from_ip={{hostvars[item]['ansible_default_ipv4']['address']}} rule=allow
+    ufw: from_ip={{hostvars[item]['internal_ip']}} rule=allow
     with_items: "{{hostvars}}"
-    when: hostvars[item]['ansible_default_ipv4']['address'] is defined
+    when: hostvars[item]['internal_ip'] is defined
 
   - name: UFW Allow ceph mon access from ceph nodes
-    ufw: from_ip={{hostvars[item]['ansible_default_ipv4']['address']}} rule=allow port=3300,6789 proto=tcp
+    ufw: from_ip={{hostvars[item]['internal_ip']}} rule=allow port=3300,6789 proto=tcp
     with_items: "{{hostvars}}"
-    when: hostvars[item]['ansible_default_ipv4']['address'] is defined
+    when: hostvars[item]['internal_ip'] is defined
 
   - name: UFW Allow ceph services access from ceph nodes
-    ufw: from_ip={{hostvars[item]['ansible_default_ipv4']['address']}} rule=allow port=6800:7300 proto=tcp
+    ufw: from_ip={{hostvars[item]['internal_ip']}} rule=allow port=6800:7300 proto=tcp
     with_items: "{{hostvars}}"
-    when: hostvars[item]['ansible_default_ipv4']['address'] is defined
+    when: hostvars[item]['internal_ip'] is defined
 
   - name: UFW Allow ceph rgw access from ceph nodes
-    ufw: from_ip={{hostvars[item]['ansible_default_ipv4']['address']}} rule=allow port=8000 proto=tcp
+    ufw: from_ip={{hostvars[item]['internal_ip']}} rule=allow port=8000 proto=tcp
     with_items: "{{hostvars}}"
-    when: hostvars[item]['ansible_default_ipv4']['address'] is defined
+    when: hostvars[item]['internal_ip'] is defined
 
   - name: UFW Allow prometheus monitoring from monitoring vm
-    ufw: from_ip={{hostvars[item]['ansible_default_ipv4']['address']}} rule=allow port=9100,9283,9093,9094,9095 proto=tcp
+    ufw: from_ip={{hostvars[item]['internal_ip']}} rule=allow port=9100,9283,9093,9094,9095 proto=tcp
     with_items: "{{hostvars}}"
-    when: hostvars[item]['ansible_default_ipv4']['address'] is defined
+    when: hostvars[item]['internal_ip'] is defined
 
   - name: UFW Allow loki access from monitoring vm
-    ufw: from_ip={{hostvars[item]['ansible_default_ipv4']['address']}} rule=allow port=3100,8080 proto=tcp
+    ufw: from_ip={{hostvars[item]['internal_ip']}} rule=allow port=3100,8080 proto=tcp
     with_items: "{{hostvars}}"
-    when: hostvars[item]['ansible_default_ipv4']['address'] is defined
+    when: hostvars[item]['internal_ip'] is defined
   
   - name: UFW Allow SSH access from NETCUP
-    ufw: from_ip={{netcup_server}} rule=allow port=22 proto=tcp
-
-  - name: UFW Allow ceph mon access from k3s nodes
-    ufw: from_ip={{item}} rule=allow port=3300,6789 proto=tcp
-    with_items: "{{k3s_cluster}}"
-
-  - name: UFW Allow ceph services access from k3s nodes
-    ufw: from_ip={{item}} rule=allow port=6800:7300 proto=tcp
-    with_items: "{{k3s_cluster}}"
+    ufw: rule=allow port=22 proto=tcp
 
   - name: UFW Allow ceph rgw access from NETCUP
     ufw: from_ip={{netcup_server}} rule=allow port=8000,8001 proto=tcp
