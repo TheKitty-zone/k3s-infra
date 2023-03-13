@@ -37,19 +37,9 @@ spec:
         env:
         - name: INVIDIOUS_CONFIG
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               key: INVIDIOUS_CONFIG
-              name: {{ template "invidious.fullname" . }}
-        - name: INVIDIOUS_CONFIG_DB
-          valueFrom:
-            secretKeyRef:
               name: {{ template "invidious.fullname" . }}-secret
-              key: db_values
-        - name: INVIDIOUS_CONFIG_HMAC
-          valueFrom:
-            secretKeyRef:
-              name: {{ template "invidious.fullname" . }}-secret
-              key: hmac_key
         securityContext:
           allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
           capabilities:
