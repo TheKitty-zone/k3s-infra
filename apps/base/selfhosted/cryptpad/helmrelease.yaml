@@ -21,7 +21,7 @@ spec:
     image:
       repository: ghcr.io/nicholaswilde/cryptpad # {"$imagepolicy": "flux-system:crypt-pad:name"}
       pullPolicy: Always
-      tag: "latest"
+      tag: "latest" # {"$imagepolicy": "flux-system:crypt-pad:tag"}
     controller:
       strategy:
       rollingUpdate:
