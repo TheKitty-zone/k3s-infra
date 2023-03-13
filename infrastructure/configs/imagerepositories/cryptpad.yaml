@@ -4,5 +4,5 @@ metadata:
   name: crypt-pad
   namespace: flux-system
 spec:
-  image: gghcr.io/nicholaswilde/cryptpad
+  image: ghcr.io/nicholaswilde/cryptpad
   interval: 1m0s

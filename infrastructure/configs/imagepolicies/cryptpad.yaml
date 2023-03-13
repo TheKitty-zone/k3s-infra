@@ -9,5 +9,5 @@ spec:
   filterTags:
     pattern: '^version-[0-9].+'
   policy:
-    numerical:
+    alphabetical:
       order: asc
