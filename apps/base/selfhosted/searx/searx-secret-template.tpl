@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: searxng-config
+  namespace: selfhosted
 stringData:
   settings.yml: |-
     config:
@@ -10,7 +11,7 @@ stringData:
         general:
           enable_metrics: true
         server:
-          secret_key: 
+          secret_key:
           image_proxy: true
           http_protocol_version: "1.0"
         ui:
