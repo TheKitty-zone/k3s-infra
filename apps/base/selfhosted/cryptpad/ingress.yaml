@@ -5,9 +5,8 @@ metadata:
   name: cryptpad
   namespace: selfhosted
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd,crypt-pad-crypt-pad-headers@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: sc.thekitty.zone,cryptpad.thekitty.zone
 spec:
   rules:

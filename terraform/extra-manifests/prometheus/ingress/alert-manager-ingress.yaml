@@ -4,7 +4,7 @@ metadata:
   name: alert-manager-ingress
   namespace: monitoring
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: "nginx"    
     cert-manager.io/cluster-issuer: letsencrypt-prod
     traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd,default-my-basic-auth@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: alerts.thekitty.zone
@@ -17,10 +17,10 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: prometheus-kube-prom-alertmanager
+            name: kube-prometheus-stack-alertmanager
             port:
               number: 9093
   tls:
-    - secretName: alert-manager-tls
+    - secretName: alert-manager
       hosts:
         - alerts.thekitty.zone

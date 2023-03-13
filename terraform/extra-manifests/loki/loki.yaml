@@ -6,7 +6,7 @@ metadata:
 spec:
   chart: loki-stack
   repo: https://grafana.github.io/helm-charts
-  targetNamespace: montitoring
+  targetNamespace: monitoring
   values:
       loki:
         persistence:

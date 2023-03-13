@@ -3,10 +3,10 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: searxng-config
-data:
+stringData:
   settings.yml: |-
     config:
-        use_default_settings: true
+        use_default_settings: false
         general:
           enable_metrics: true
         server:
@@ -20,6 +20,17 @@ data:
           autocomplete: "qwant"
           autocomplete_min: 4
           default_lang: "en-US"
+        enabled_plugins:
+          # these plugins are enabled if nothing is configured ..
+          - 'Hash plugin'
+          - 'Search on category select'
+          - 'Self Information'
+          - 'Tracker URL remover'
+          # these plugins are disabled if nothing is configured ..
+          - 'Hostname replace'  # see hostname_replace configuration below
+          - 'Open Access DOI rewrite'
+          - 'Vim-like hotkeys'
+          - 'Tor check plugin'
         hostname_replace:
           '(.*\.)?youtube\.com$': 'watch.thekitty.zone'
           '(.*\.)?youtu\.be$': 'watch.thekitty.zone'

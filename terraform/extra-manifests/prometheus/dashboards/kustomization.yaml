@@ -5,4 +5,3 @@ namespace: monitoring
 bases:
 - ./flux
 - ./postgres
-- ./traefik
