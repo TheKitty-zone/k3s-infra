@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: rimgo
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: rimgo
+  filterTags:
+    pattern: '^[a-z]+'
+  policy:
+    numerical:
+      order: asc

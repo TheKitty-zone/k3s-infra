@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: crypt-pad
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: crypt-pad
+  filterTags:
+    pattern: '^version-[0-9].+'
+  policy:
+    numerical:
+      order: asc

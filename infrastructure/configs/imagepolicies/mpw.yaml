@@ -1,0 +1,14 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: mpw
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: mpw
+  filterTags:
+    pattern: '^(?P<ts>.*)-[a-fA-F0-9]+'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc

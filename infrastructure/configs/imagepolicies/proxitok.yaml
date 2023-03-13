@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: proxitok
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: proxitok
+  filterTags:
+    pattern: '^sha256-[a-fA-F0-9]+.sig'
+  policy:
+    numerical:
+      order: asc
