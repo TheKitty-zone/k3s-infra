@@ -19,7 +19,7 @@ spec:
         namespace: flux-system
   interval: 1h0m0s
   releaseName: vaultwarden
-  targetNamespace: vaultwarden
+  targetNamespace: home
   values:
     image:
       # -- image repository

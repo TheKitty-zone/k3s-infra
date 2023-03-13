@@ -19,7 +19,7 @@ spec:
         namespace: flux-system
   interval: 1h0m0s
   releaseName: firefly
-  targetNamespace: firefly
+  targetNamespace: home
   values:
     firefly-db:
       # if you set this to false it will not be installed
