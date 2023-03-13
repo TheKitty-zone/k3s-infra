@@ -50,7 +50,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/vaultwarden"
+  path: "./apps/base/home/vaultwarden"
   prune: true
   sourceRef:
     kind: GitRepository

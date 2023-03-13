@@ -8,7 +8,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/cryptpad"
+  path: "./apps/base/selfhosted/cryptpad"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -29,7 +29,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/homepageAndBlog"
+  path: "./apps/base/selfhosted/homepageAndBlog"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -50,7 +50,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/invidious"
+  path: "./apps/base/selfhosted/invidious"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -71,7 +71,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/librarian"
+  path: "./apps/base/selfhosted/librarian"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -92,7 +92,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/libreddit"
+  path: "./apps/base/selfhosted/libreddit"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -113,7 +113,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/mpw"
+  path: "./apps/base/selfhosted/mpw"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -134,7 +134,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-  path: "./apps/base/redis"
+  path: "./apps/base/selfhosted/redis"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -153,7 +153,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./apps/base/signer"
+  path: "./apps/base/selfhosted/signer"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -175,7 +175,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: "./apps/base/proxitok"
+  path: "./apps/base/selfhosted/proxitok"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -200,7 +200,7 @@ spec:
   interval: 10m
   dependsOn:
   - name: infra-configs
-  path: "./apps/base/rimgo"
+  path: "./apps/base/selfhosted/rimgo"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -221,7 +221,7 @@ spec:
   interval: 10m
   dependsOn:
   - name: infra-configs
-  path: "./apps/base/searx"
+  path: "./apps/base/selfhosted/searx"
   prune: true
   sourceRef:
     kind: GitRepository

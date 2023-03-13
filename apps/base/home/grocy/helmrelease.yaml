@@ -16,7 +16,7 @@ spec:
       version: '>=1.0.0'
   interval: 1h0m0s
   releaseName: grocy
-  targetNamespace: grocy
+  targetNamespace: home
   values:
     image:
       # -- image repository
@@ -170,7 +170,7 @@ spec:
       version: '>=1.0.0'
   interval: 1h0m0s
   releaseName: barcode-buddy
-  targetNamespace: grocy
+  targetNamespace: home
   values:
     image:
       # -- image repository

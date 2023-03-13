@@ -16,7 +16,7 @@ spec:
       version: '>1.0.0'
   interval: 1h0m0s
   releaseName: signer
-  targetNamespace: proxitok
+  targetNamespace: selfhosted
   values:
     image:
       # -- image repository
