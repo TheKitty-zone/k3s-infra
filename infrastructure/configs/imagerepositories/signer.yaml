@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: singer
+  namespace: flux-system
+spec:
+  image: ghcr.io/pablouser1/signtok
+  interval: 1m0s
