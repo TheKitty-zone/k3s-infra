@@ -33,8 +33,8 @@ spec:
         - {{.}}
         {{ end -}}        
       author:
-        email: zofi@xamh.de
-        name: 11tuvork28
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
     push:
       branch: main
   update:
