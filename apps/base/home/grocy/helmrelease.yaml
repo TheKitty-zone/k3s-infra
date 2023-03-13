@@ -51,7 +51,7 @@ spec:
       # -- Enable and configure ingress settings for the chart under this key.
       main:
         annotations:
-          kubernetes.io/ingress.class: traefik
+          kubernetes.io/ingress.class: nginx
           cert-manager.io/cluster-issuer: letsencrypt-prod
           traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
           external-dns.alpha.kubernetes.io/hostname: "grocy.thekitty.zone"
@@ -196,7 +196,7 @@ spec:
       # -- Enable and configure ingress settings for the chart under this key.
       main:
         annotations:
-          kubernetes.io/ingress.class: traefik
+          kubernetes.io/ingress.class: nginx
           cert-manager.io/cluster-issuer: letsencrypt-prod
           traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
           external-dns.alpha.kubernetes.io/hostname: "bcbuddy.thekitty.zone"

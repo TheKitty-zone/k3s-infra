@@ -127,7 +127,7 @@ spec:
         enabled: true
         className: ""
         annotations:
-          kubernetes.io/ingress.class: traefik
+          kubernetes.io/ingress.class: nginx
           cert-manager.io/cluster-issuer: letsencrypt-prod
           traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
           external-dns.alpha.kubernetes.io/hostname: "firefly.thekitty.zone"
@@ -152,7 +152,7 @@ spec:
         enabled: true
         className: ""
         annotations:
-          kubernetes.io/ingress.class: traefik
+          kubernetes.io/ingress.class: nginx
           cert-manager.io/cluster-issuer: letsencrypt-prod
           traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
           external-dns.alpha.kubernetes.io/hostname: "import.firefly.thekitty.zone"
