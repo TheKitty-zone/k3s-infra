@@ -22,7 +22,7 @@ spec:
     name: invidious
     image:
       # Custom image, not recommended for personal use
-      repository: ghcr.io/thekitty-zone/invidious
+      repository: ghcr.io/thekitty-zone/invidious # {"$imagepolicy": "flux-system:invidious:name"}
       tag: latest
       pullPolicy: Always
 

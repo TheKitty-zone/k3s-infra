@@ -20,7 +20,7 @@ spec:
   values:
     image:
       # -- image repository
-      repository: codeberg.org/librarian/librarian
+      repository: codeberg.org/librarian/librarian # {"$imagepolicy": "flux-system:lbry:name"}
       # -- image pull policy
       pullPolicy: Always
       # -- image tag

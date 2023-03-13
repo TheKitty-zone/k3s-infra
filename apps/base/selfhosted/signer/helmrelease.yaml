@@ -20,12 +20,12 @@ spec:
   values:
     image:
       # -- image repository
-      repository: ghcr.io/pablouser1/signtok
+      repository: ghcr.io/pablouser1/signtok # {"$imagepolicy": "flux-system:signer:name"}
       # -- image pull policy
       pullPolicy: Always
       # -- image tag
       # this example is not automatically updated, so be sure to use the latest image
-      tag: master
+      tag: master # {"$imagepolicy": "flux-system:signer:tag"}
 
     controller:
       strategy: "RollingUpdate"

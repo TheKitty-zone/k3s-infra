@@ -20,12 +20,12 @@ spec:
   values:
     image:
       # -- image repository
-      repository: codeberg.org/video-prize-ranch/rimgo 
+      repository: codeberg.org/video-prize-ranch/rimgo # {"$imagepolicy": "flux-system:rimgo:name"}
       # -- image pull policy
       pullPolicy: Always
       # -- image tag
       # this example is not automatically updated, so be sure to use the latest image
-      tag: latest
+      tag: latest # {"$imagepolicy": "flux-system:rimgo:tag"}
 
     controller:
       strategy:
