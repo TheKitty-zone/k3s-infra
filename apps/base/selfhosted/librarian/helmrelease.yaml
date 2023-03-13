@@ -16,7 +16,7 @@ spec:
       version: '>=1.0.0'
   interval: 1h0m0s
   releaseName: lbry
-  targetNamespace: lbry
+  targetNamespace: selfhosted
   values:
     image:
       # -- image repository
