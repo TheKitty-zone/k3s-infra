@@ -22,6 +22,7 @@ entries:
     - https://github.com/11tuvork28/invidious
     urls:
     - https://github.com/11Tuvork28/k3s-infra/releases/download/invidious-1.2.3/invidious-1.2.3.tgz
+    version: 1.2.3
   - apiVersion: v2
     appVersion: latest
     created: "2023-02-23T15:19:30.239600643Z"
