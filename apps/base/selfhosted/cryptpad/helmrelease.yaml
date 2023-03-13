@@ -16,7 +16,7 @@ spec:
       version: '>=1.0.0'
   interval: 1h0m0s
   releaseName: crypt-pad
-  targetNamespace: crypt-pad
+  targetNamespace: selfhosted
   values:
     image:
       repository: ghcr.io/nicholaswilde/cryptpad
