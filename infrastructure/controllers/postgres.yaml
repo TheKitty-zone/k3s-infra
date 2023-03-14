@@ -73,7 +73,7 @@ spec:
   proxy:
     pgBouncer:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.17-1
-      replicas: 2
+      replicas: 4
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
