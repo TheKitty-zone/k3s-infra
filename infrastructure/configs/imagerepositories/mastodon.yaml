@@ -4,5 +4,5 @@ metadata:
   name: mastodon
   namespace: flux-system
 spec:
-  image: codeberg.org/librarian/librarian
+  image: ghcr.io/glitch-soc/mastodon
   interval: 1m0s
