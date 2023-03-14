@@ -6,3 +6,4 @@ resources:
   - ./imagepolicies
   - ./imagerepositories
   - ./imageUpdateAutomation.yaml
+  - ./notifications
