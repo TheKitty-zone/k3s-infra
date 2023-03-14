@@ -111,24 +111,12 @@ data:
             - ingress,4
             - mailers,2
             - pull,2
-            - scheduler # Make sure the scheduler queue only exists once and with a worker that has 1 replica.
-        #- name: push-pull
-        #  concurrency: 50
-        #  resources: {}
-        #  replicas: 2
-        #  queues:
-        #    - push
-        #    - pull
-        #- name: mailers
-        #  concurrency: 25
-        #  replicas: 2
-        #  queues:
-        #    - mailers
-        #- name: default
-        #  concurrency: 25
-        #  replicas: 2
-        #  queues:
-        #    - default
+            # - scheduler # Make sure the scheduler queue only exists once and with a worker that has 1 replica.
+          - name: scheduler
+            concurrency: 25
+            replicas: 1
+            queues:
+              - scheduler
       smtp:
         auth_method: plain
         delivery_method: smtp
