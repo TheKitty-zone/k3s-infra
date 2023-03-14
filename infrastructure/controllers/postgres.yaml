@@ -63,6 +63,9 @@ spec:
     - name: firefly
       databases:
         - firefly
+    - name: mastodon
+      databases:
+        - mastodon_production
   monitoring:
     pgmonitor:
       exporter:
