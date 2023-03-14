@@ -6,4 +6,5 @@ resources:
   - firefly.yaml
   - home-repo.yaml
   - sealed-secrets.yaml
+  - mastodon.yaml
   
