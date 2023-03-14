@@ -7,7 +7,7 @@ spec:
   interval: 1h0m0s
   chart:
     spec:
-      chart: mastodon
+      chart: ./
       version: '>=4.0.0'
       sourceRef:
         kind: GitRepository
