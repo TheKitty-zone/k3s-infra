@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -20,13 +19,12 @@ spec:
   values:
     image:
       # -- image repository
-      repository:  ghcr.io/pivx-labs/mypivxwallet # {"$imagepolicy": "flux-system:mpw:name"}
+      repository: ghcr.io/pivx-labs/mypivxwallet # {"$imagepolicy": "flux-system:mpw:name"}
       # -- image pull policy
       pullPolicy: Always
       # -- image tag
       # this example is not automatically updated, so be sure to use the latest image
-      tag: latest # {"$imagepolicy": "flux-system:mpw:tag"}
-
+      tag: 2023-03-13-92d7568 # {"$imagepolicy": "flux-system:mpw:tag"}
     controller:
       strategy: "RollingUpdate"
       rollingUpdate:
@@ -36,10 +34,7 @@ spec:
         surge: 2
         # -- Set statefulset RollingUpdate partition
         partition: 1
-
       replicas: 3
-
-
     # -- Configures service settings for the chart.
     service:
       main:
@@ -50,7 +45,6 @@ spec:
       # -- Enable and configure ingress settings for the chart under this key.
       main:
         enabled: false
-
     probes:
       # -- Liveness probe configuration
       # @default -- See below
@@ -73,7 +67,6 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 1
           failureThreshold: 3
-
       # -- Redainess probe configuration
       # @default -- See below
       readiness:
@@ -95,7 +88,6 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 1
           failureThreshold: 3
-
       # -- Startup probe configuration
       # @default -- See below
       startup:

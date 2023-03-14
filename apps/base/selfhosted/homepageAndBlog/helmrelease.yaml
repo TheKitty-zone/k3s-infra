@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -20,18 +19,15 @@ spec:
   values:
     image:
       # -- image repository
-      repository:  ghcr.io/thekitty-zone/thekitty.zone # {"$imagepolicy": "flux-system:homepage:name"}
+      repository: ghcr.io/thekitty-zone/thekitty.zone # {"$imagepolicy": "flux-system:homepage:name"}
       # -- image pull policy
       pullPolicy: Always
       # -- image tag
       # this example is not automatically updated, so be sure to use the latest image
-      tag: latest # {"$imagepolicy": "flux-system:homepage:tag"}
-
+      tag: 2023-03-13-f0e4324 # {"$imagepolicy": "flux-system:homepage:tag"}
     controller:
       strategy: "RollingUpdate"
       replicas: 3
-
-
     # -- Configures service settings for the chart.
     service:
       main:
@@ -59,7 +55,6 @@ spec:
           - secretName: thekitty.zone-tls
             hosts:
               - thekitty.zone
-
     probes:
       # -- Liveness probe configuration
       # @default -- See below
@@ -82,7 +77,6 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 1
           failureThreshold: 3
-
       # -- Redainess probe configuration
       # @default -- See below
       readiness:
@@ -104,7 +98,6 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 1
           failureThreshold: 3
-
       # -- Startup probe configuration
       # @default -- See below
       startup:
