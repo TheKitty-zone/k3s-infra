@@ -43,3 +43,30 @@ spec:
       create: true
       username: admin
       passwordHash: "$2b$12$jSOeUuNF6Bsht83Q/VsKquB4ZvXsm5PU/1fmCON4H92t/tjv.Y9YG"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: weave-gitops
+  namespace: flux-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/hostname: "flux.thekitty.zone"
+    external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+spec:
+  rules:
+  - host: flux.thekitty.zone
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: weave-gitops
+            port: 
+              number: 9100
+  tls:
+    - secretName: flux-thekitty.zone-tls
+      hosts:
+        - flux.thekitty.zone
