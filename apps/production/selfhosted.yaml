@@ -250,13 +250,21 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: Deployment
-      name: mastodon-web
+      name: mastodon-glitch-web
       namespace: selfhosted
     - apiVersion: apps/v1
       kind: Deployment
-      name: mastodon-streaming
+      name: mastodon-glitch-streaming
       namespace: selfhosted
     - apiVersion: apps/v1
       kind: Deployment
-      name: mastodon-sidekiq
+      name: mastodon-glitch-sidekiq-all-queues
+      namespace: selfhosted
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: mastodon-glitch-sidekiq-scheduler
+      namespace: selfhosted
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: mastodon-glitch-elasticsearch-metrics 
       namespace: selfhosted
