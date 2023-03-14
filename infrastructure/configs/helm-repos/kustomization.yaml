@@ -7,4 +7,5 @@ resources:
   - ./home-repo.yaml
   - ./sealed-secrets.yaml
   - ./mastodon.yaml
+  - ./invidious.yaml
   
