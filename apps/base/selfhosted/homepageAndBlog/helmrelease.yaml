@@ -40,21 +40,21 @@ spec:
         annotations:
           kubernetes.io/ingress.class: nginx
           cert-manager.io/cluster-issuer: letsencrypt-prod
-          external-dns.alpha.kubernetes.io/hostname: "@"
+          external-dns.alpha.kubernetes.io/hostname: "www.thekitty.zone"
           external-dns.alpha.kubernetes.io/ttl: "3600" #optional
         ingressClassName: ""
         enabled: true
         hosts:
-          - host: thekitty.zone
+          - host: www.thekitty.zone
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   port: 80
         tls:
-          - secretName: thekitty.zone-tls
+          - secretName: www-thekitty.zone-tls
             hosts:
-              - thekitty.zone
+              - www.thekitty.zone
     probes:
       # -- Liveness probe configuration
       # @default -- See below
