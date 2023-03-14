@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: mastodon
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: mastodon
+  filterTags:
+    pattern: '^[a-z]+'
+  policy:
+    alphabetical:
+      order: asc

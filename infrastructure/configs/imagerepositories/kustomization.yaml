@@ -8,3 +8,4 @@ resources:
 - ./proxitok.yaml
 - ./rimgo.yaml
 - ./signer.yaml
+- ./mastodon.yaml
