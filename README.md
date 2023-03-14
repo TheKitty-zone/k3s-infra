@@ -23,9 +23,10 @@ A non exhaustive list of deployed services.
 - [Sealed-Secrets-Controller](https://github.com/bitnami-labs/sealed-secrets)
 - [Weave GitOps](https://docs.gitops.weave.works/)
 - [Vaultwarden](https://github.com/dani-garcia/vaultwarden)
+- [Mastodon](https://github.com/glitch-soc/mastodon)
 ## Planned Deployments:
 - Matrix
-- Mastodon
+
 - Nextcloud
 
 Below you will find instruction on how to set this repo up yourself.
