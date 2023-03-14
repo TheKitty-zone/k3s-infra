@@ -65,7 +65,7 @@ spec:
           service:
             name: weave-gitops
             port: 
-              number: 9100
+              number: 9001
   tls:
     - secretName: flux-thekitty.zone-tls
       hosts:
