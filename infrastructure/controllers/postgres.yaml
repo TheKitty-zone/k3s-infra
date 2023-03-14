@@ -86,8 +86,8 @@ spec:
                   postgres-operator.crunchydata.com/role: pgbouncer
   patroni:
     dynamicConfiguration:
-      synchronous_mode: true
-      synchronous_mode_strict: true
+      synchronous_mode: false
+      synchronous_mode_strict: false
       max_wal_size: 8GB
       autovacuum_vacuum_cost_limit: 1000
       autovacuum_vacuum_cost_delay: 10ms
