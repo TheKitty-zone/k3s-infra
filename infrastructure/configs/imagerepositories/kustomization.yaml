@@ -9,3 +9,4 @@ resources:
 - ./rimgo.yaml
 - ./signer.yaml
 - ./mastodon.yaml
+- ./invidious.yaml
