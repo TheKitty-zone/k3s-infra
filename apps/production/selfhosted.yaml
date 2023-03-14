@@ -232,3 +232,31 @@ spec:
       name: searxng
       namespace: flux-system
   wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: mastodon
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: "./apps/base/selfhosted/mastodon"
+  prune: true 
+  timeout: 2m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  validation: server
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: mastodon-web
+      namespace: selfhosted
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: mastodon-streaming
+      namespace: selfhosted
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: mastodon-sidekiq
+      namespace: selfhosted
