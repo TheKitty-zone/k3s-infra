@@ -7,7 +7,7 @@ spec:
   imageRepositoryRef:
     name: mastodon
   filterTags:
-    pattern: '^[a-z]+'
+    pattern: '^[0-9a-f]{5,40}\b'
   policy:
     alphabetical:
       order: asc
