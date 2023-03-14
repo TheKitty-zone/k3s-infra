@@ -247,12 +247,15 @@ data:
       metrics:
         enabled: true
         serviceMonitor:
-
           enabled: true
+          labels:
+            release: "kube-prometheus-stack"
           namespace: monitoring
         prometheusRule:
           enabled: true
           namespace: monitoring
+          additonalLabels:
+            release: "kube-prometheus-stack"
 
     # https://github.com/bitnami/charts/tree/master/bitnami/postgresql#parameters
     postgresql:
