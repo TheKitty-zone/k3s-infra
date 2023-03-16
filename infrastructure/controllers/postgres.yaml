@@ -85,18 +85,19 @@ spec:
                   postgres-operator.crunchydata.com/cluster: elefant
                   postgres-operator.crunchydata.com/role: pgbouncer
   patroni:
-    dynamicConfiguration:
-      synchronous_mode: false
-      synchronous_mode_strict: false
-      max_wal_size: 8GB
-      autovacuum_vacuum_cost_limit: 1000
-      autovacuum_vacuum_cost_delay: 10ms
-      autovacuum_naptime: 5s
-      vacuum_freeze_table_age: 100000
-      vacuum_freeze_min_age: 100000
-      track_activity_query_size: 2048
-      autovacuum_freeze_max_age: 100000
-      pg_stat_statements.track: all
-      max_connections: 5000
-      keepalives_idle: 30
-      tcp_keepalives_idle: 30
+      postgresql:
+        parameters:
+          synchronous_mode: false
+          synchronous_mode_strict: false
+          max_wal_size: 8GB
+          autovacuum_vacuum_cost_limit: 1000
+          autovacuum_vacuum_cost_delay: 10ms
+          autovacuum_naptime: 5s
+          vacuum_freeze_table_age: 100000
+          vacuum_freeze_min_age: 100000
+          track_activity_query_size: 2048
+          autovacuum_freeze_max_age: 100000
+          pg_stat_statements.track: all
+          max_connections: 5000
+          tcp_keepalives_idle: 30
+          
