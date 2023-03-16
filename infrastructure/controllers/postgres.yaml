@@ -98,3 +98,5 @@ spec:
       autovacuum_freeze_max_age: 100000
       pg_stat_statements.track: all
       max_connections: 5000
+      keepalives_idle: 30
+      tcp_keepalives_idle: 30
