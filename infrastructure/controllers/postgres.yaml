@@ -85,6 +85,7 @@ spec:
                   postgres-operator.crunchydata.com/cluster: elefant
                   postgres-operator.crunchydata.com/role: pgbouncer
   patroni:
+    dynamicConfiguration:
       postgresql:
         parameters:
           synchronous_mode: false
