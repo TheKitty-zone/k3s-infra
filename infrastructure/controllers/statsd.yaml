@@ -10,7 +10,7 @@ spec:
   valuesContent: |-
     image:
       repository: prom/statsd-exporter
-      pullPolicy: always
+      pullPolicy: Always
       # Overrides the image tag whose default is the chart appVersion.
       tag: "latest"
 
