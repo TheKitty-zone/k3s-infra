@@ -21,7 +21,7 @@ spec:
     devices: "eth1"
     l7Proxy: false
     encryption:
-      enabled: true
+      enabled: false
       type: wireguard
     prometheus:
       enabled: true
