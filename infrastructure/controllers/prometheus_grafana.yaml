@@ -39,7 +39,7 @@ spec:
                 requests:
                   storage: 100Gi
         retention: 30d
-        replicas: 2
+        replicas: 1
         containers: 
         - name: prometheus
           livenessProbe:
