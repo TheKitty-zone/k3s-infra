@@ -37,102 +37,102 @@ spec:
       # Metric mapping configuration
       mappingConfig: |-
         mappings:
-        - match: Mastodon\.production\.web\.Auth\.(\w+)\.(.+)
+        - match: mastodon\.web\.Auth\.(\w+)\.(.+)
           match_type: regex
-          name: "Mastodon_web_auth_$1_$2"
+          name: "mastodon_web_auth_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_auth"
-        - match: Mastodon\.production\.web\.WellKnown\.(\w+)\.(.+)
+            job: "mastodon_web_auth"
+        - match: mastodon\.web\.WellKnown\.(\w+)\.(.+)
           match_type: regex
-          name: "Mastodon_web_wellknown_$1_$2"
+          name: "mastodon_web_wellknown_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_wellknown"
-        - match: Mastodon\.production\.web\.Api\.(\w*\d*)\.(\w+)\.(.+)
+            job: "mastodon_web_wellknown"
+        - match: mastodon\.web\.Api\.(\w*\d*)\.(\w+)\.(.+)
           match_type: regex
-          name: "Mastodon_web_api_$1_$2_$3"
+          name: "mastodon_web_api_$1_$2_$3"
           labels:
             version: "$1"
             controller: "$2"
             operation: "$3"
-            job: "Mastodon_web_api"
-        - match: Mastodon\.production\.web\.ActivityPub\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_api"
+        - match: mastodon\.web\.ActivityPub\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_activitypub_$1_$2"
+          name: "mastodon_web_activitypub_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_activitypub"
-        - match: Mastodon\.production\.web\.Admin\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_activitypub"
+        - match: mastodon\.web\.Admin\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_admin_$1_$2"
+          name: "mastodon_web_admin_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_admin"
-        - match: Mastodon\.production\.web\.Oauth\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_admin"
+        - match: mastodon\.web\.Oauth\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_oauth_$1_$2"
+          name: "mastodon_web_oauth_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_oauth"
-        - match: Mastodon\.production\.web\.PgHero\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_oauth"
+        - match: mastodon\.web\.PgHero\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_pghero_$1_$2"
+          name: "mastodon_web_pghero_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_pghero"
-        - match: Mastodon\.production\.web\.Settings\.TwoFactorAuthentication\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_pghero"
+        - match: mastodon\.web\.Settings\.TwoFactorAuthentication\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_settings_twofactorauthentication_$1_$2"
+          name: "mastodon_web_settings_twofactorauthentication_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_settings_twofactorauthentication"
-        - match: Mastodon\.production\.web\.Settings\.Preferences\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_settings_twofactorauthentication"
+        - match: mastodon\.web\.Settings\.Preferences\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_settings_preferences_$1_$2"
+          name: "mastodon_web_settings_preferences_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_settings_preferences"
-        - match: Mastodon\.production\.web\.Settings\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_settings_preferences"
+        - match: mastodon\.web\.Settings\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_settings_$1_$2"
+          name: "mastodon_web_settings_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web_settings"
-        - match: Mastodon\.production\.web\.(\w*[Cc]ontroller\w*)\.(.+)
+            job: "mastodon_web_settings"
+        - match: mastodon\.web\.(\w*[Cc]ontroller\w*)\.(.+)
           match_type: regex
-          name: "Mastodon_web_$1_$2"
+          name: "mastodon_web_$1_$2"
           labels:
             controller: "$1"
             operation: "$2"
-            job: "Mastodon_web"
-        - match: Mastodon\.production\.cache\.(.+)
+            job: "mastodon_web"
+        - match: mastodon\.cache\.(.+)
           match_type: regex
-          name: "Mastodon_cache_$1"
+          name: "mastodon_cache_$1"
           labels:
             operation: "$1"
-            job: "Mastodon_cache"
-        - match: Mastodon\.production\.db\.(.+)
+            job: "mastodon_cache"
+        - match: mastodon\.db\.(.+)
           match_type: regex
-          name: "Mastodon_db_$1"
+          name: "mastodon_db_$1"
           labels:
             operation: "$1"
-            job: "Mastodon_db"
-        - match: Mastodon\.production\.sidekiq\.(.+)
+            job: "mastodon_db"
+        - match: mastodon\.sidekiq\.(.+)
           match_type: regex
-          name: "Mastodon_sidekiq_$1"
+          name: "mastodon_sidekiq_$1"
           labels:
             operation: "$1"
-            job: "Mastodon_sidekiq"
+            job: "mastodon_sidekiq"
 
     serviceMonitor:
       enabled: true
