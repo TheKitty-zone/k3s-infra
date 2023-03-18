@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - weave-gitops.yaml
   - postgres.yaml
+  - loki.yaml

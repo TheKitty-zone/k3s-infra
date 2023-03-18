@@ -2,7 +2,7 @@ apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
   name: loki
-  namespace: kube-system
+  namespace: monitoring
 spec:
   chart: loki-stack
   repo: https://grafana.github.io/helm-charts
@@ -11,14 +11,14 @@ spec:
       loki:
         persistence:
           enabled: true
-          storageClassName: "hcloud-volumes"
+          storageClassName: "csi-cephfs-sc"
           # Customize this
-          size: 12Gi
+          size: 100Gi
         config:
           table_manager:
             retention_deletes_enabled: true
             # Customize this: how long should logs be kept?
-            retention_period: 1w
+            retention_period: 30d
           limits_config:
             max_query_series: 5000
         serviceMonitor:
