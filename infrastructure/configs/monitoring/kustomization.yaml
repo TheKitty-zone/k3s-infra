@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./namespace.yaml
-  - ./helmrelease.yaml
   - ./ingress
   - ./podMonitors
   - ./prometheusrules
