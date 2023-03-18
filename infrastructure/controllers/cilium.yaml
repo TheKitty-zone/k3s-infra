@@ -1,0 +1,55 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  annotations:
+    helmcharts.cattle.io/managed-by: helm-controller
+  finalizers:
+  - wrangler.cattle.io/on-helm-chart-remove
+  generation: 3
+  name: cilium
+  namespace: kube-system
+spec:
+  bootstrap: true
+  chart: cilium
+  repo: https://helm.cilium.io/
+  targetNamespace: kube-system
+  valuesContent: |-
+    ipam:
+     operator:
+      clusterPoolIPv4PodCIDRList:
+       - 10.42.0.0/16
+    devices: "eth1"
+    l7Proxy: false
+    encryption:
+      enabled: true
+      type: wireguard
+    prometheus:
+      enabled: true
+    operator:
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          namespace: monitoring
+          labels:
+            release: "kube-prometheus-stack"
+    hubble:
+      enabled: true
+      metrics:
+        enableOpenMetrics: true
+        enabled: "{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
+        serviceMonitor:
+          enabled: true
+          namespace: monitoring
+          labels:
+            release: "kube-prometheus-stack"
+      relay:
+        # set this to false as Hubble relay is already installed
+        enabled: true
+        tls:
+          server:
+            # set this to true if tls is enabled on Hubble relay server side
+            enabled: false
+      ui:
+        # enable Hubble UI
+        enabled: true
