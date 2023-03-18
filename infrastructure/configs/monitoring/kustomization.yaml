@@ -6,8 +6,6 @@ resources:
   - ./namespace.yaml
   - ./ingress
   - ./podMonitors
-  - ./prometheusrules
   - ./serviceMonitors
   - ./dashboards
-  - ./auth-secret-alermanager-discord.yaml
   - ./alertmanager-discord.yaml

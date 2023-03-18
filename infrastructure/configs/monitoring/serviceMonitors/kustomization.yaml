@@ -4,4 +4,3 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./kube-system.yaml
-  - ./traefik-service-monitor.yaml
