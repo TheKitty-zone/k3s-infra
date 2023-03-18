@@ -6,3 +6,4 @@ resources:
   - postgres.yaml
   - loki.yaml
   - prometheus_grafana.yaml
+  - statsd.yaml
