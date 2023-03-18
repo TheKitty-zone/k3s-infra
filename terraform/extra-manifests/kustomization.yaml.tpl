@@ -3,7 +3,4 @@ kind: Kustomization
 resources:
 - ./auth-external-dns.yaml
 - ./pgo
-- ./prometheus
-- ./loki
 - ./auth-pgo-s3-creds.yaml
-- ./postgres.yaml
