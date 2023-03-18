@@ -7,7 +7,7 @@ spec:
   chart: loki-stack
   repo: https://grafana.github.io/helm-charts
   targetNamespace: monitoring
-  values:
+  valuesContent: |-
       loki:
         persistence:
           enabled: true
@@ -23,6 +23,7 @@ spec:
             max_query_series: 5000
         serviceMonitor:
           enabled: true
+          namespace: monitoring
 
       promtail:
         enabled: true
