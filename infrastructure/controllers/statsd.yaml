@@ -133,16 +133,6 @@ spec:
           labels:
             operation: "$1"
             job: "Mastodon_sidekiq"
-    prometheus:
-      monitor:
-        enabled: true
-        namespace: "monitoring"
-        interval: 30s
-        apiVersion: "monitoring.coreos.com/v1"
-        ## resource kind(defaults to "PodMonitoring")
-        kind: "PodMonitor"
-        # metrics exposing endpoint
-        endpoint: "/metrics"
 
     serviceMonitor:
       enabled: true
