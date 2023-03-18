@@ -4,3 +4,4 @@ resources:
   - weave-gitops.yaml
   - postgres.yaml
   - loki.yaml
+  - prometheus_grafana.yaml

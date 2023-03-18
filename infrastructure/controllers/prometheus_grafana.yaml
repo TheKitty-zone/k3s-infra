@@ -1,0 +1,95 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  chart: kube-prometheus-stack
+  repo: https://prometheus-community.github.io/helm-charts
+  targetNamespace: monitoring
+  valuesContent: |-
+    alertmanager:
+      config:
+        route:
+          group_by: ['alertname','job', 'servity']
+          group_wait: 20s
+          group_interval: 5m
+          repeat_interval: 3h 
+          receiver: discord_webhook
+
+        receivers:
+        - name: 'null'
+        - name: 'discord_webhook'
+          webhook_configs:
+          - url: 'http://alertmanager-discord:9094'
+
+    prometheus:
+      prometheusSpec:
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "csi-cephfs-sc"
+              accessModes: 
+              - "ReadWriteMany"
+              resources:
+                requests:
+                  storage: 100Gi
+        retention: 30d
+    kubeControllerManager:
+      enabled: true
+      endpoints:
+      - 10.253.0.101
+      - 10.254.0.101
+      - 10.255.0.101
+    kubeEtcd:
+      enabled: true
+      endpoints:
+      - 10.253.0.101
+      - 10.254.0.101
+      - 10.255.0.101
+      service:
+        enabled: true
+        port: 2381
+        targetPort: 2381
+    kubeScheduler:
+      enabled: true
+      endpoints:
+      - 10.253.0.101
+      - 10.254.0.101
+      - 10.255.0.101
+    kubeProxy:
+      enabled: true
+      endpoints:
+      - 10.253.0.101
+      - 10.254.0.101
+      - 10.255.0.101
+
+    grafana:
+      forceDeployDatasources: true
+      forceDeployDashboards: true
+      sidecar:
+        datasources:
+          enabled: true
+          defaultDatasourceEnabled: true
+          isDefaultDatasource: true
+          uid: prometheus
+      additionalDataSources:
+        - name: Loki
+          type: loki
+          url: http://loki:3100
+          editable: true
+      serviceMonitor:
+        enabled: true
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClassName: "csi-cephfs-sc"
+        accessModes:
+          - "ReadWriteMany"
+      grafana.ini:
+        feature_toggles:
+          publicDashboards: true
