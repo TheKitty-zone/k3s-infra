@@ -25,6 +25,11 @@ spec:
       type: wireguard
     prometheus:
       enabled: true
+      serviceMonitor:
+          enabled: true
+          namespace: monitoring
+          labels:
+            release: "kube-prometheus-stack"
     operator:
       prometheus:
         enabled: true
@@ -37,8 +42,8 @@ spec:
       enabled: true
       metrics:
         enableOpenMetrics: true
-        enabled: "{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
         serviceMonitor:
+        enabled: "{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip,source_namespace,source_workload,destination_ip,destination_namespace,destination_workload,traffic_direction}"
           enabled: true
           namespace: monitoring
           labels:
