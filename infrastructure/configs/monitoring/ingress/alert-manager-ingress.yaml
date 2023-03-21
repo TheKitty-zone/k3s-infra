@@ -8,6 +8,8 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd,default-my-basic-auth@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: alerts.thekitty.zone
+    nginx.org/basic-auth-secret: "basicauth-monitoring"
+    nginx.org/basic-auth-realm: "Monitoring Auth"
 spec:
   rules:
   - host: alerts.thekitty.zone
