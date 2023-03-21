@@ -37,102 +37,94 @@ spec:
       # Metric mapping configuration
       mappingConfig: |-
         mappings:
-          - match: mastodon\_web\_Auth\_(\w+)\_(.+)
+          ## Web collector
+          - match: mastodon\_web\_(.+)\_(.+)\_(.+)\_status\_(.+)
             match_type: regex
-            name: "mastodon_web_auth_$1_$2"
+            name: "mastodon_controller_status"
             labels:
-              controller: "$1"
+              controller: $1
+              action: $2
+              format: $3
+              status: $4
+              mastodon: "web"
+          - match: mastodon\_web\_(.+)\_(.+)\_(.+)\_db_time
+            match_type: regex
+            name: "mastodon_controller_db_time"
+            labels:
+              controller: $1
+              action: $2
+              format: $3
+              mastodon: "web"
+          - match: mastodon\_web\_(.+)\_(.+)\_(.+)\_view_time
+            match_type: regex
+            name: "mastodon_controller_view_time"
+            labels:
+              controller: $1
+              action: $2
+              format: $3
+              mastodon: "web"
+          - match: mastodon\_web\_(.+)\_(.+)\_(.+)\_total_duration
+            match_type: regex
+            name: "mastodon_controller_duration"
+            labels:
+              controller: $1
+              action: $2
+              format: $3
+              mastodon: "web"
+
+          ## Database collector
+          - match: mastodon\_db\_tables\_(.+)\_queries\_(.+)\_duration
+            match_type: regex
+            name: "mastodon_db_operation"
+            labels:
+              table: "$1"
               operation: "$2"
-              job: "mastodon_web_auth"
-          - match: mastodon\_web\_WellKnown\_(\w+)\_(.+)
+              mastodon: "db"
+
+          ## Cache collector
+          - match: mastodon\_cache\_(.+)\_duration
             match_type: regex
-            name: "mastodon_web_wellknown_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_wellknown"
-          - match: mastodon\_web\_Api\_(\w*\d*)\_(\w+)\_(.+)
-            match_type: regex
-            name: "mastodon_web_api_$1_$2_$3"
-            labels:
-              version: "$1"
-              controller: "$2"
-              operation: "$3"
-              job: "mastodon_web_api"
-          - match: mastodon\_web\_ActivityPub\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_activitypub_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_activitypub"
-          - match: mastodon\_web\_Admin\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_admin_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_admin"
-          - match: mastodon\_web\_Oauth\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_oauth_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_oauth"
-          - match: mastodon\_web\_PgHero\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_pghero_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_pghero"
-          - match: mastodon\_web\_Settings\_TwoFactorAuthentication\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_settings_twofactorauthentication_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_settings_twofactorauthentication"
-          - match: mastodon\_web\_Settings\_Preferences\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_settings_preferences_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_settings_preferences"
-          - match: mastodon\_web\_Settings\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_settings_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web_settings"
-          - match: mastodon\_web\_(\w*[Cc]ontroller\w*)\_(.+)
-            match_type: regex
-            name: "mastodon_web_$1_$2"
-            labels:
-              controller: "$1"
-              operation: "$2"
-              job: "mastodon_web"
-          - match: mastodon\_cache\_(.+)
-            match_type: regex
-            name: "mastodon_cache_$1"
+            name: "mastodon_cache_duration"
             labels:
               operation: "$1"
-              job: "mastodon_cache"
-          - match: mastodon\_db\_(.+)
+              mastodon: "cache"
+
+          ## Sidekiq collector
+          - match: mastodon\_sidekiq\_(.+)\_processing_time
             match_type: regex
-            name: "mastodon_db_$1"
+            name: "mastodon_sidekiq_worker_processing_time"
             labels:
-              operation: "$1"
-              job: "mastodon_db"
+              worker: "$1"
+              mastodon: "sidekiq"
+          - match: mastodon\_sidekiq\_(.+)\_success
+            match_type: regex
+            name: "mastodon_sidekiq_worker_success_total"
+            labels:
+              worker: "$1"
+              mastodon: "sidekiq"
+          - match: mastodon\_sidekiq\_(.+)\_failure
+            match_type: regex
+            name: "mastodon_sidekiq_worker_failure_total"
+            labels:
+              worker: "$1"
+              mastodon: "sidekiq"
+          - match: mastodon\_sidekiq\_queues\_(.+)\_enqueued
+            match_type: regex
+            name: "mastodon_sidekiq_queue_enqueued"
+            labels:
+              queue: "$1"
+              mastodon: "sidekiq"
+          - match: mastodon\_sidekiq\_queues\_(.+)\_latency
+            match_type: regex
+            name: "mastodon_sidekiq_queue_latency"
+            labels:
+              queue: "$1"
+              mastodon: "sidekiq"
           - match: mastodon\_sidekiq\_(.+)
             match_type: regex
             name: "mastodon_sidekiq_$1"
             labels:
-              operation: "$1"
-              job: "mastodon_sidekiq"
+              mastodon: "sidekiq"
 
     serviceMonitor:
       enabled: true
