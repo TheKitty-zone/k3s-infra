@@ -31,7 +31,11 @@ spec:
         namespace: "monitoring"
     master:
       persistence:
-        enabled: false
+        enabled: true
+        storageClass: "csi-cephfs-sc"
+        size: "20GB"
     replica:
       persistence:
-        enabled: false
+        enabled: true
+        storageClass: "csi-cephfs-sc"
+        size: "20GB"
