@@ -33,9 +33,9 @@ spec:
       persistence:
         enabled: true
         storageClass: "csi-cephfs-sc"
-        size: "20GB"
+        size: "20Gi"
     replica:
       persistence:
         enabled: true
         storageClass: "csi-cephfs-sc"
-        size: "20GB"
+        size: "20Gi"
