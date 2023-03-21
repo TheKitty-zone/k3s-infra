@@ -8,3 +8,4 @@ resources:
   - ./imageUpdateAutomation.yaml
   - ./notifications
   - ./monitoring
+  - ./cilium-ingress.yaml
