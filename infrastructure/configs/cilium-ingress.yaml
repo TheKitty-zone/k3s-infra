@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cilium-hubble
-  namespace: kube-system
+  namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: "nginx"    
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -19,7 +19,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: hubble-ui
+            name: hubble-ui.kube-system.svc
             port: 
               number: 80
   tls:
