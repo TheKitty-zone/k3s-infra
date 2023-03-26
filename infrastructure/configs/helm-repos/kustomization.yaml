@@ -7,4 +7,4 @@ resources:
   - ./home-repo.yaml
   - ./sealed-secrets.yaml
   - ./mastodon.yaml
-  
+  - ./tyzbit.yaml
