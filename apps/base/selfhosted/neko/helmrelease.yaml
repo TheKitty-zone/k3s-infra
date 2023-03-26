@@ -43,8 +43,6 @@ spec:
     ingress:
       # -- Whether to create the ingress object
       enabled: true
-      # -- Ingress class
-      className: "nginx"
       # -- Annotations for the ingress
       annotations:
         kubernetes.io/ingress.class: nginx
