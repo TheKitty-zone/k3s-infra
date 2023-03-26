@@ -12,7 +12,6 @@ spec:
         kind: HelmRepository
         name: tyzbit
         namespace: flux-system
-      version: '>=1.0.0'
   interval: 1h0m0s
   releaseName: neko
   targetNamespace: selfhosted
@@ -41,3 +40,28 @@ spec:
 
     # -- Use an existing secret with environment variables for Neko
     existingSecret: ""
+    ingress:
+      # -- Whether to create the ingress object
+      enabled: true
+      # -- Ingress class
+      className: "nginx"
+      # -- Annotations for the ingress
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        external-dns.alpha.kubernetes.io/hostname: neko.thekitty.zone
+        external-dns.alpha.kubernetes.io/ttl: "600" #optional
+      hosts:
+        - # -- Hostname to access Neko
+          host: neko.thekitty.zone
+          paths:
+            - # -- Path off the hostname to access Neko
+              path: /
+              # -- Path type
+              pathType: ImplementationSpecific
+      # -- TLS config
+      # @default -- See values.yaml for an example
+      tls:
+       - secretName: neko-thekitty-zone-tls
+         hosts:
+           - neko.thekitty.zone
