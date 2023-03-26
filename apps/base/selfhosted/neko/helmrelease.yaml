@@ -37,6 +37,7 @@ spec:
       NEKO_PASSWORD_ADMIN: admin
       # -- Port range for Neko
       NEKO_EPR: 52000-52100
+      NEKO_ICELITE: 1
 
     # -- Use an existing secret with environment variables for Neko
     existingSecret: ""
