@@ -67,10 +67,10 @@ spec:
       config:
         type: pvc
         enabled: true
-        mountPath: /config
+        mountPath: /config/jellyfin
         existingClaim: media-pv-config
       media:
         type: pvc
         enabled: true
-        mountPath: /mnt/
+        mountPath: /data
         existingClaim: media-pv-data

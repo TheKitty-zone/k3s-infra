@@ -72,5 +72,5 @@ spec:
       media:
         type: pvc
         enabled: true
-        mountPath: /mnt/
+        mountPath: /data
         existingClaim: media-pv-data
