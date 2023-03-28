@@ -67,10 +67,15 @@ spec:
       config:
         type: pvc
         enabled: true
-        mountPath: /config/sonarr
+        mountPath: /config
+        subPath: /config/sonarr
         existingClaim: media-pv-config
       media:
         type: pvc
         enabled: true
         mountPath: /data
         existingClaim: media-pv-data
+    secruityContext:
+      runAsUser: 911
+      runAsGroup: 911
+      fsGroup: 911
