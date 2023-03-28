@@ -61,3 +61,110 @@ spec:
       name: vaultwarden
       namespace: home
   wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: media-pvs
+  namespace: flux-system
+spec:
+  interval: 10m
+  dependsOn:
+    - name: infra-configs
+  path: "./apps/base/home/media"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: sabnzbd
+  namespace: flux-system
+spec:
+  interval: 10m
+  dependsOn:
+    - name: infra-configs
+    - name: media
+  path: "./apps/base/home/sabnzbd"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: HelmRelease
+      name: sabnzbd
+      namespace: home
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: jellyfin
+  namespace: flux-system
+spec:
+  interval: 10m
+  dependsOn:
+    - name: infra-configs
+    - name: media
+    - name: sabnzbd
+  path: "./apps/base/home/jellyfin"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: HelmRelease
+      name: jellyfin
+      namespace: home
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: radarr
+  namespace: flux-system
+spec:
+  interval: 10m
+  dependsOn:
+    - name: infra-configs
+    - name: media
+    - name: sabnzbd
+  path: "./apps/base/home/radarr"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: HelmRelease
+      name: radarr
+      namespace: home
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: sonarr
+  namespace: flux-system
+spec:
+  interval: 10m
+  dependsOn:
+    - name: infra-configs
+    - name: media
+    - name: sabnzbd
+  path: "./apps/base/home/sonarr"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: HelmRelease
+      name: sonarr
+      namespace: home
+  wait: true
