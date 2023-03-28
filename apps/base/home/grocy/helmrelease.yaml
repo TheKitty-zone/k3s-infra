@@ -55,7 +55,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
           external-dns.alpha.kubernetes.io/hostname: "grocy.thekitty.zone"
-          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+          external-dns.alpha.kubernetes.io/ttl: "600" #optional
         ingressClassName: ""
         enabled: true
         hosts:
@@ -200,7 +200,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
           external-dns.alpha.kubernetes.io/hostname: "bcbuddy.thekitty.zone"
-          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+          external-dns.alpha.kubernetes.io/ttl: "600" #optional
         ingressClassName: ""
         enabled: true
         hosts:

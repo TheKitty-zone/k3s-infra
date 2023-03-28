@@ -93,7 +93,7 @@ spec:
           kubernetes.io/ingress.class: nginx
           cert-manager.io/cluster-issuer: letsencrypt-prod
           external-dns.alpha.kubernetes.io/hostname: vault.thekitty.zone
-          external-dns.alpha.kubernetes.io/ttl: "3600" #optional
+          external-dns.alpha.kubernetes.io/ttl: "600" #optional
         ingressClassName: ""
         enabled: true
         hosts:

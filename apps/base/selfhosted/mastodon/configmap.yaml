@@ -209,6 +209,7 @@ data:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
         nginx.ingress.kubernetes.io/proxy-body-size: 40m
         nginx.org/websocket-services: "mastodon-glitch-streaming"
+        external-dns.alpha.kubernetes.io/ttl: "600"
       ingressClassName:
       hosts:
         - host: thekitty.zone
