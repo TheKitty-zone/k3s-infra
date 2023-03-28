@@ -80,5 +80,5 @@ spec:
       runAsGroup: 1001
       fsGroup: 1001
     env:
-      PUID: 1001
-      PGID: 1001
+      PUID: 0
+      PGID: 0
