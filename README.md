@@ -141,7 +141,6 @@ Verify that your production cluster satisfies the prerequisites with:
 flux check --pre
 ```
 
-```
 Bootstrap Flux on production by setting the context and path to your production cluster:
 
 ```sh
