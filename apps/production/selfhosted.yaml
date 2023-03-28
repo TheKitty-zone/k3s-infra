@@ -268,24 +268,3 @@ spec:
       kind: Deployment
       name: mastodon-glitch-elasticsearch-metrics 
       namespace: selfhosted
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: neko
-  namespace: flux-system
-spec:
-  interval: 10m
-  dependsOn:
-  - name: infra-configs
-  path: "./apps/base/selfhosted/neko"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
-      kind: HelmRelease
-      name: neko
-      namespace: flux-system
-  wait: true
