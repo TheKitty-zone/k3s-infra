@@ -87,7 +87,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-    - name: media
+    - name: media-pvs
   path: "./apps/base/home/sabnzbd"
   prune: true
   sourceRef:
@@ -109,7 +109,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-    - name: media
+    - name: media-pvs
     - name: sabnzbd
   path: "./apps/base/home/jellyfin"
   prune: true
@@ -132,7 +132,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-    - name: media
+    - name: media-pvs
     - name: sabnzbd
   path: "./apps/base/home/radarr"
   prune: true
@@ -155,7 +155,7 @@ spec:
   interval: 10m
   dependsOn:
     - name: infra-configs
-    - name: media
+    - name: media-pvs
     - name: sabnzbd
   path: "./apps/base/home/sonarr"
   prune: true
