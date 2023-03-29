@@ -47,9 +47,6 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           external-dns.alpha.kubernetes.io/hostname: jelly.thekitty.zone
           external-dns.alpha.kubernetes.io/ttl: "600" #optional
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: "basicauth-media"
-          nginx.ingress.kubernetes.io/auth-realm: "Media Auth"
         ingressClassName: ""
         enabled: true
         hosts:
@@ -80,6 +77,4 @@ spec:
       runAsGroup: 1001
       fsGroup: 1001
     env:
-      PUID: 0
-      PGID: 0
       JELLYFIN_PublishedServerUrl: "jelly.thekitty.zone"
