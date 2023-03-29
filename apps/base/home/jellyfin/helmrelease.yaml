@@ -82,3 +82,4 @@ spec:
     env:
       PUID: 0
       PGID: 0
+      JELLYFIN_PublishedServerUrl: "jelly.thekitty.zone"
