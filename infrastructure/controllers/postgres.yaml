@@ -75,6 +75,7 @@ spec:
       config:
         global:
           query_wait_timeout: "300"
+          pool_mode: "transaction"
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.17-1
       replicas: 4
       affinity:
