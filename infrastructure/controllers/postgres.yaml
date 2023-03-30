@@ -84,6 +84,9 @@ spec:
                 matchLabels:
                   postgres-operator.crunchydata.com/cluster: elefant
                   postgres-operator.crunchydata.com/role: pgbouncer
+      config:
+        global:
+          query_wait_timeout: 300
   patroni:
     dynamicConfiguration:
       postgresql:
