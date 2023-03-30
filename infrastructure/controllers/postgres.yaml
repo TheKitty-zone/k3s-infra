@@ -72,6 +72,9 @@ spec:
         image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.1-0
   proxy:
     pgBouncer:
+      config:
+        global:
+          query_wait_timeout: "300"
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.17-1
       replicas: 4
       affinity:
@@ -84,9 +87,7 @@ spec:
                 matchLabels:
                   postgres-operator.crunchydata.com/cluster: elefant
                   postgres-operator.crunchydata.com/role: pgbouncer
-      config:
-        global:
-          query_wait_timeout: 300
+
   patroni:
     dynamicConfiguration:
       postgresql:
