@@ -22,7 +22,7 @@ spec:
     image:
       # Custom image, not recommended for personal use
       repository: ghcr.io/thekitty-zone/invidious # {"$imagepolicy": "flux-system:invidious:name"}
-      tag: 2023-04-01-546bb7b # {"$imagepolicy": "flux-system:invidious:tag"}
+      tag: 2023-04-01-9973f14 # {"$imagepolicy": "flux-system:invidious:tag"}
       pullPolicy: Always
     # -- Configure the update strategy
     # Currently only RollingUpdate is supported
