@@ -33,8 +33,9 @@ spec:
           name: pgo-s3-creds
       global:
         repo1-s3-uri-style: path
-        repo1-retention-full: "14"
-        repo1-retention-full-type: time
+        repo1-retention-full: "2"
+        repo1-retention-diff: "2"
+        repo1-retention-full-type: count
         repo1-path: /pgbackrest/postgres-operator/elefant/repo1
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.40-1
       repos:
