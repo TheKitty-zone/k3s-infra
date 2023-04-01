@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -23,9 +22,8 @@ spec:
     image:
       # Custom image, not recommended for personal use
       repository: ghcr.io/thekitty-zone/invidious # {"$imagepolicy": "flux-system:invidious:name"}
-      tag: 2023-03-08-7d3d545  # {"$imagepolicy": "flux-system:invidious:tag"}
+      tag: 2023-04-01-7d1fa4e # {"$imagepolicy": "flux-system:invidious:tag"}
       pullPolicy: Always
-
     # -- Configure the update strategy
     # Currently only RollingUpdate is supported
     # @default -- See below
@@ -34,7 +32,6 @@ spec:
       unavailable: 2
       surge: 1
       replicaCount: 3
-
     # -- Configure the HPA
     # minReplicas should match replicaCount
     # @default -- See below
@@ -43,11 +40,9 @@ spec:
       minReplicas: 3
       maxReplicas: 16
       targetCPUUtilizationPercentage: 75
-
     service:
       type: ClusterIP
       port: 3000
-
     # -- Configure resource limits here
     # My custom image never exceeds 1024Mi, highest I have seen is 870Mi
     # @default -- See below
@@ -66,7 +61,6 @@ spec:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
-
     # -- Configure the secret that holds sensitive infos
     # We assume that sealed-secrets are used, if not enable below and set the db values accordingly otherwise this should be ignored
     # We also assume an external postgres cluster is being used
@@ -79,14 +73,12 @@ spec:
         host: service-name.postgres-namespace.svc
         port: 5432
         dbname: invidious
-
     # -- Configure the ingress definition
     # Note: middlewares are only supported when using traefik
     # @default -- See below
     ingress:
       enabled: false
       domain: "watch.thekitty.zone"
-
     # -- Configure invidious to your needs
     # Note that the hmac parametes is generated behind the scenes for you.
     # [[ref]](https://github.com/11tuvork28/invidious/blob/master/config/config.example.yml)
