@@ -44,7 +44,7 @@ spec:
           full: "0 1 * * 0"
           differential: "0 1 * * 1-6"
         s3:
-          bucket: "k3s-pgo-backup"
+          bucket: "k3s-postgres-backup"
           endpoint: "https://s3.ceph.thekitty.zone"
           region: "CEPH_AINT_NO_NEED_REGION"
   users:
