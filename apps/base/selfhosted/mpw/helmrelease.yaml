@@ -24,7 +24,7 @@ spec:
       pullPolicy: Always
       # -- image tag
       # this example is not automatically updated, so be sure to use the latest image
-      tag: 2023-04-04-23da164 # {"$imagepolicy": "flux-system:mpw:tag"}
+      tag: 2023-04-04-153d5eb # {"$imagepolicy": "flux-system:mpw:tag"}
     controller:
       strategy: "RollingUpdate"
       rollingUpdate:
