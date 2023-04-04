@@ -34,15 +34,13 @@ spec:
       global:
         repo1-s3-uri-style: path
         repo1-retention-full: "2"
-        repo1-retention-diff: "2"
         repo1-retention-full-type: count
         repo1-path: /pgbackrest/postgres-operator/elefant/repo1
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.40-1
       repos:
       - name: repo1
         schedules:
-          full: "0 1 * * 0"
-          differential: "0 1 * * 1-6"
+          full: "0 1 * * 0-6"
         s3:
           bucket: "k3s-postgres-backup"
           endpoint: "https://s3.ceph.thekitty.zone"
