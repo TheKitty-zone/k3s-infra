@@ -24,7 +24,7 @@ spec:
       pullPolicy: Always
       # -- image tag
       # this example is not automatically updated, so be sure to use the latest image
-      tag: latest # {"$imagepolicy": "flux-system:collar-rs-client:tag"}
+      tag: 2023-04-05-d345c22 # {"$imagepolicy": "flux-system:collar-rs-client:tag"}
     controller:
       strategy: "RollingUpdate"
       replicas: 3
