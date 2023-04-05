@@ -45,7 +45,7 @@ spec:
         ingressClassName: ""
         enabled: true
         hosts:
-          - host: www.thekitty.zone
+          - host: collar.thekitty.zone
             paths:
               - path: /
                 pathType: Prefix
