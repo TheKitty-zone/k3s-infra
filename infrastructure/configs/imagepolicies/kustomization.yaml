@@ -10,3 +10,4 @@ resources:
 - ./signer.yaml
 - ./mastodon.yaml
 - ./invidious.yaml
+- ./collar-rs.yaml
