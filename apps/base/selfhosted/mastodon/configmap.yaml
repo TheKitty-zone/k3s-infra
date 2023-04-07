@@ -13,7 +13,7 @@ data:
       # built from the most recent commit
       #
       # tag: latest
-      tag: "latest"  # {"$imagepolicy": "flux-system:mastodon:tag"}
+      tag: "aa08a726545133a0af01fa51079724e9ae2134d5"  # {"$imagepolicy": "flux-system:mastodon:tag"}
       # use `Always` when using `latest` tag
       pullPolicy: Always
 
