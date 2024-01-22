@@ -1,3 +1,5 @@
+# NOTICE
+**DUE TO FINANCIAL AND TIME RESAONS I NO LONGER MAINTAIN THIS INFRASTRUCTURE**
 # The kitty zone infrastructure
 To the repository where everything lies that I currently run and that is publically available on [TheKitty.zone](https://thekitty.zone/services/).
 
